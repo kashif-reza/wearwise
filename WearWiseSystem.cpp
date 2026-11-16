@@ -172,9 +172,9 @@ using namespace std;
             cout << "  [3] Select Occasion, Situation & Weather\n";
             cout << "  [4] Explore Color Harmonies & Palettes\n";
             cout << "  [5] My Wardrobe (Inventory & Laundry Tracking)\n";
-            cout << "  [6] Daily Outfit Planner\n";
+            cout << "  [6] Style & Outfit Planner\n";
             cout << "  [7] My Profile & Anthropometric Measurements\n";
-            cout << "  [8] Budget & Purchase Advisor\n";
+
             cout << "  [9] Outfit Usage History\n";
             cout << " [10] AI Virtual Try-On Prompt Generator\n";
             cout << "  [0] Exit Application\n";
