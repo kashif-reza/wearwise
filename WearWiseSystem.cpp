@@ -175,11 +175,11 @@ using namespace std;
             cout << "  [6] Style & Outfit Planner\n";
             cout << "  [7] My Profile & Anthropometric Measurements\n";
 
-            cout << "  [9] Outfit Usage History\n";
-            cout << " [10] AI Virtual Try-On Prompt Generator\n";
+            cout << "  [8] Outfit Usage History\n";
+            cout << "  [9] AI Virtual Try-On Prompt Generator\n";
             cout << "  [0] Exit Application\n";
             cout << "======================================================================\n";
-            cout << "Enter option (0-10): ";
+            cout << "Enter option (0-9): ";
 
             int selection;
             if (!(cin >> selection)) {
@@ -197,8 +197,8 @@ using namespace std;
                 case 6:  dailyOutfitPlanner(); break;
                 case 7:  displayProfile(); break;
 
-                case 9:  showHistory(); break;
-                case 10: generateAIPrompt(); break;
+                case 8:  showHistory(); break;
+                case 9:  generateAIPrompt(); break;
                 case 0:
                     cout << "\nSaving all session data to text files. Exiting WearWise...\n";
                     return;
