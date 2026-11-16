@@ -196,7 +196,7 @@ using namespace std;
                 case 5:  manageWardrobe(); break;
                 case 6:  dailyOutfitPlanner(); break;
                 case 7:  displayProfile(); break;
-                case 8:  budgetAdvisor(); break;
+
                 case 9:  showHistory(); break;
                 case 10: generateAIPrompt(); break;
                 case 0:
