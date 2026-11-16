@@ -23,41 +23,68 @@ using namespace std;
     }
 
     void WearWiseSystem::budgetAdvisor() {
-        cout << "\n======================================================================\n";
-        cout << "                  BUDGET & PURCHASE ADVISOR                           \n";
-        cout << "======================================================================\n";
-        cout << " Monthly Budget:   $" << fixed << setprecision(2) << monthlyBudget << "\n";
-        cout << " Spent to Date:    $" << totalExpenditure << "\n";
-        cout << " Remaining Funds:  $" << (monthlyBudget - totalExpenditure) << "\n";
-        cout << "----------------------------------------------------------------------\n";
+    cout << "\n------------------------------------------------------------------\n";
+    cout << " OPTIONAL PURCHASE AWARENESS (STYLE PLANNER)\n";
+    cout << "------------------------------------------------------------------\n";
+    cout << "This is an optional helper. Wardrobe and outfit planning remain the main focus.\n";
+    cout << "Currency: Bangladeshi Taka (BDT / ৳).\n\n";
 
-        double remaining = monthlyBudget - totalExpenditure;
-        cout << "Catalogue Purchases fitting within your remaining budget:\n";
-        for (const auto& itm : clothingCatalogue) {
-            bool matches = (toLower(itm.targetGroup) == toLower(user.targetGroup) || toLower(itm.targetGroup) == "unisex");
-            if (!itm.isOwned && matches && itm.price <= remaining) {
-                cout << " * " << left << setw(30) << itm.name << " [" << itm.category
-                     << "] - $" << fixed << setprecision(2) << itm.price << "\n";
-            }
+    const double remaining = monthlyBudget - totalExpenditure;
+    cout << fixed << setprecision(2);
+    cout << "Optional spending limit: ৳" << monthlyBudget << "\n";
+    cout << "Recorded purchases:      ৳" << totalExpenditure << "\n";
+    cout << "Remaining limit:         ৳" << remaining << "\n\n";
+
+    cout << "Owned, ready items that may suit " << user.currentOccasion << ":\n";
+    bool foundOwned = false;
+    for (const auto& item : clothingCatalogue) {
+        const bool groupMatches = toLower(item.targetGroup) == toLower(user.targetGroup)
+            || toLower(item.targetGroup) == "unisex";
+        const bool occasionMatches = item.occasion.empty()
+            || toLower(item.occasion).find(toLower(user.currentOccasion)) != string::npos;
+        if (item.isOwned && item.isAvailable && groupMatches && occasionMatches) {
+            cout << "  - " << item.name << " (" << item.category << ", " << item.color << ")\n";
+            foundOwned = true;
         }
-        cout << "\nOptions: [1] Adjust Budget  [2] Record Purchase  [0] Go Back\nChoice: ";
-        int ch;
-        if (!(cin >> ch) || ch == 0) {
-            cin.clear();
-            cin.ignore(1000, '\n');
+    }
+    if (!foundOwned) cout << "  No matching ready owned items found.\n";
+
+    cout << "\n[1] Change optional limit  [2] Record purchase  [0] Back\nChoice: ";
+    int choice;
+    if (!(cin >> choice)) {
+        cin.clear();
+        cin.ignore(10000, '\n');
+        cout << "Invalid input. Returning to planner.\n";
+        return;
+    }
+    cin.ignore(10000, '\n');
+    if (choice == 0) return;
+    if (choice == 1) {
+        double newLimit;
+        cout << "Enter optional limit in BDT (>= 0): ৳";
+        if (!(cin >> newLimit) || newLimit < 0) {
+            cin.clear(); cin.ignore(10000, '\n');
+            cout << "Invalid limit. No changes saved.\n";
             return;
         }
-
-        if (ch == 1) {
-            cout << "Enter new monthly budget: $";
-            cin >> monthlyBudget;
-            saveBudget();
-        } else if (ch == 2) {
-            double spent;
-            cout << "Enter purchase amount: $";
-            cin >> spent;
-            totalExpenditure += spent;
-            saveBudget();
+        cin.ignore(10000, '\n');
+        monthlyBudget = newLimit;
+        saveBudget();
+        cout << "Optional limit saved.\n";
+    } else if (choice == 2) {
+        double amount;
+        cout << "Purchase amount in BDT (> 0): ৳";
+        if (!(cin >> amount) || amount <= 0) {
+            cin.clear(); cin.ignore(10000, '\n');
+            cout << "Invalid amount. No purchase recorded.\n";
+            return;
         }
-        cin.ignore();
-    }
+        cin.ignore(10000, '\n');
+        totalExpenditure += amount;
+        saveBudget();
+        cout << "Purchase recorded. Remaining optional limit: ৳"
+             << (monthlyBudget - totalExpenditure) << "\n";
+        if (totalExpenditure > monthlyBudget)
+            cout << "Gentle reminder: recorded purchases exceed your optional limit.\n";
+    } else cout << "Unknown option. No changes made.\n";
+}
