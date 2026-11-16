@@ -27,13 +27,13 @@ using namespace std;
     cout << " OPTIONAL PURCHASE AWARENESS (STYLE PLANNER)\n";
     cout << "------------------------------------------------------------------\n";
     cout << "This is an optional helper. Wardrobe and outfit planning remain the main focus.\n";
-    cout << "Currency: Bangladeshi Taka (BDT / ৳).\n\n";
+    cout << "Currency display retains the existing $ notation used by the catalogue.\n\n";
 
     const double remaining = monthlyBudget - totalExpenditure;
     cout << fixed << setprecision(2);
-    cout << "Optional spending limit: ৳" << monthlyBudget << "\n";
-    cout << "Recorded purchases:      ৳" << totalExpenditure << "\n";
-    cout << "Remaining limit:         ৳" << remaining << "\n\n";
+    cout << "Optional spending limit: $" << monthlyBudget << "\n";
+    cout << "Recorded purchases:      $" << totalExpenditure << "\n";
+    cout << "Remaining limit:         $" << remaining << "\n\n";
 
     cout << "Owned, ready items that may suit " << user.currentOccasion << ":\n";
     bool foundOwned = false;
@@ -61,7 +61,7 @@ using namespace std;
     if (choice == 0) return;
     if (choice == 1) {
         double newLimit;
-        cout << "Enter optional limit in BDT (>= 0): ৳";
+        cout << "Enter optional limit in the displayed currency (>= 0): $";
         if (!(cin >> newLimit) || newLimit < 0) {
             cin.clear(); cin.ignore(10000, '\n');
             cout << "Invalid limit. No changes saved.\n";
@@ -73,7 +73,7 @@ using namespace std;
         cout << "Optional limit saved.\n";
     } else if (choice == 2) {
         double amount;
-        cout << "Purchase amount in BDT (> 0): ৳";
+        cout << "Purchase amount in the displayed currency (> 0): $";
         if (!(cin >> amount) || amount <= 0) {
             cin.clear(); cin.ignore(10000, '\n');
             cout << "Invalid amount. No purchase recorded.\n";
@@ -82,7 +82,7 @@ using namespace std;
         cin.ignore(10000, '\n');
         totalExpenditure += amount;
         saveBudget();
-        cout << "Purchase recorded. Remaining optional limit: ৳"
+        cout << "Purchase recorded. Remaining optional limit: $"
              << (monthlyBudget - totalExpenditure) << "\n";
         if (totalExpenditure > monthlyBudget)
             cout << "Gentle reminder: recorded purchases exceed your optional limit.\n";
