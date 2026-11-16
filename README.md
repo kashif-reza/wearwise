@@ -1,109 +1,82 @@
-# WearWise 👕
-### Offline Smart Fashion Assistant & Wardrobe System (C++)
+# WearWise — Offline Smart Fashion & Wardrobe Assistant
 
-WearWise is a console-based fashion and wardrobe management application written in C++. It helps users organize clothing items, receive outfit recommendations, plan looks for occasions and seasons, track laundry status, and manage a clothing budget.
+WearWise is a C++17 console application for managing a personal wardrobe, exploring outfit combinations, planning outfits, tracking outfit history, and monitoring clothing expenses. This repository remains a **console-based C++ project**; it is not a website.
+
+## Refactored source structure
+
+- `main.cpp` — application entry point
+- `UserProfile.h` — user profile data structure
+- `ClothingItem.h` — clothing, color-rule, and planner data structures
+- `StringUtils.h/.cpp` — shared string helpers
+- `ProfileManager.cpp` — profile setup, persistence, and display
+- `WardrobeManager.cpp` — wardrobe inventory and laundry status
+- `OutfitRecommendation.cpp` — recommendation scoring and outfit suggestions
+- `OutfitPlanner.cpp` — outfit scheduling
+- `BudgetManager.cpp` — budget and purchase tracking
+- `HistoryManager.cpp` — outfit usage history
+- `ColorHarmony.cpp` — color compatibility and palette explorer
+- `AIPromptGenerator.cpp` — AI virtual try-on prompt generation
+- `WearWiseSystem.h/.cpp` — system coordinator, file initialization, and main menu
 
 ## Features
 
-- **User Profile & Measurements** — stores user details, body measurements, preferred size and fit, style goals, and color preferences.
-- **Ideal Stylist Recommendations** — suggests outfit combinations from the catalogue without requiring the user to own the items.
-- **Smart Wardrobe Recommendations** — recommends combinations using only owned items marked clean/ready.
-- **Outfit Compatibility Scoring** — scores combinations based on color harmony, size availability, style, occasion, favorite colors, and season.
-- **Occasion & Weather Configuration** — configure scenarios such as university, office, interview, wedding, travel, casual outings, or sports.
-- **Wardrobe Inventory & Laundry Tracking** — add clothing items and toggle clean/laundry status.
-- **Daily Outfit Planner** — schedule outfit plans by date and occasion.
-- **Color Harmony Explorer** — view complementary color rules.
-- **Budget & Purchase Advisor** — set a monthly budget and record purchases.
-- **Outfit Usage History** — log outfits already worn.
-- **AI Virtual Try-On Prompt Generator** — create a descriptive prompt for an external image-generation tool.
+- Men’s, women’s, kids’, and unisex catalogue entries
+- Upper wear, lower wear, footwear, outerwear, and accessories (for example watches, belts, bags, and sunglasses)
+- Wardrobe inventory and clean/laundry availability flag
+- Ideal outfit recommendations and recommendations from owned, ready items
+- Occasion and season selection
+- Profile and body measurement storage
+- Outfit planner and persistent outfit history
+- Monthly budget and expense total
+- Color harmony rules
+- AI try-on prompt generation (prompt text only; does not generate images)
+- TXT-based local persistence
 
-## Tech Stack
+## Build
 
-- C++
-- Standard Template Library (STL)
-- Text-file persistence (`.txt`) — no database required
+### Using g++
 
-## Getting Started
+From the project directory:
 
-### Requirements
-
-A C++ compiler supporting C++11 or newer, such as:
-
-- GCC / MinGW
-- Clang
-- Microsoft Visual C++
-
-### Compile
-
-**Linux / macOS**
 ```bash
-g++ -std=c++11 -Wall -Wextra wearwise.cpp -o wearwise
+g++ -std=c++17 -Wall -Wextra -pedantic *.cpp -o wearwise
+```
+
+Run:
+
+```bash
 ./wearwise
 ```
 
-**Windows (MinGW)**
+On Windows (MinGW):
+
+```powershell
+g++ -std=c++17 -Wall -Wextra -pedantic *.cpp -o wearwise.exe
+.\wearwise.exe
+```
+
+### Using CMake
+
 ```bash
-g++ -std=c++11 -Wall -Wextra wearwise.cpp -o wearwise.exe
-wearwise.exe
+cmake -S . -B build
+cmake --build build
 ```
 
-If your compiler supports a newer standard, you may also use `-std=c++17`.
+## TXT data files
 
-## Data Files
+On first launch, WearWise creates the following data files in the **current working directory**:
 
-On first launch, WearWise initializes its text-based data files in the working directory:
+- `users.txt` — saved profile
+- `clothing.txt` — catalogue and owned items
+- `colors.txt` — color compatibility rules
+- `budget.txt` — monthly budget and accumulated expenditure
+- `history.txt` — worn outfit records
+- `planner.txt` — scheduled outfits
 
-| File | Purpose |
-|---|---|
-| `users.txt` | User profile and measurements |
-| `clothing.txt` | Clothing catalogue and owned/availability flags |
-| `colors.txt` | Color harmony rules |
-| `budget.txt` | Monthly budget and expenditure |
-| `history.txt` | Previously worn outfit records |
-| `planner.txt` | Scheduled outfit plans |
+The program includes menu actions for adding wardrobe items and recording outfit history; you do not need to manually edit the TXT files for these actions. Keep a backup before editing any TXT file directly. Records use pipe (`|`) separators, so avoid entering the pipe character inside values.
 
-Keep these files in the same working directory as the program so that saved data can be loaded.
+## Important notes
 
-## How to Use
-
-1. Run the application.
-2. Create a profile using the fast-track preset or custom setup.
-3. Select an occasion and season/weather.
-4. Explore ideal stylist or owned-wardrobe recommendations.
-5. Manage clothing inventory and laundry status.
-6. Schedule outfits, log worn outfits, and track budget as needed.
-
-## Project Structure
-
-```text
-wearwise/
-├── wearwise.cpp
-└── README.md
-```
-
-The `.txt` data files are generated by the application at runtime and are not required to be committed initially.
-
-## Notes & Limitations
-
-- This is a **console application**, not a graphical user interface.
-- Outfit recommendations are rule-based; they do not call an online AI service.
-- The virtual try-on feature generates a text prompt only.
-- Budget values in the current sample catalogue are represented in USD.
-- User data is stored locally in plain text files.
-
-## Future Improvements
-
-- Add input validation and stronger error handling.
-- Improve size recommendation logic using measurement-based size charts.
-- Add more catalogue entries and configurable currency.
-- Add export/import and backup functionality.
-- Develop a graphical interface.
-
-## Author
-
-**Kashif Reza**  
-GitHub: [@kashif-reza](https://github.com/kashif-reza)
-
-## License
-
-This project is currently provided without an explicit license. Add a license file if you intend to define permissions for reuse and distribution.
+- The budget uses a configurable currency symbol currently displayed as `$`; it is not automatically converted to BDT or another currency.
+- The outfit scoring system is a heuristic and does not guarantee professional styling or exact garment sizing.
+- This is an offline, single-user console application.
