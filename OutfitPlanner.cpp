@@ -31,32 +31,75 @@ using namespace std;
     }
 
     void WearWiseSystem::dailyOutfitPlanner() {
+    while (true) {
         cout << "\n======================================================================\n";
-        cout << "                     DAILY OUTFIT PLANNER                             \n";
+        cout << "                     STYLE & OUTFIT PLANNER                           \n";
         cout << "======================================================================\n";
-        cout << "Scheduled Plans:\n";
-        for (const auto& p : plannedOutfits) {
-            cout << " Date: " << left << setw(12) << p.date << " | Event: " << setw(14)
-                 << p.occasion << " | Outfit: " << p.outfitDetails << "\n";
+        if (plannedOutfits.empty()) {
+            cout << "No plans yet. Create a date-based outfit plan to get started.\n";
+        } else {
+            cout << "Scheduled Plans:\n";
+            for (size_t i = 0; i < plannedOutfits.size(); ++i) {
+                const auto& plan = plannedOutfits[i];
+                cout << " [" << (i + 1) << "] " << left << setw(12) << plan.date
+                     << " | " << setw(14) << plan.occasion
+                     << " | " << plan.outfitDetails << "\n";
+            }
         }
         cout << "----------------------------------------------------------------------\n";
-        cout << "Options: [1] Schedule New Plan  [0] Go Back\nChoice: ";
-        int ch;
-        if (!(cin >> ch) || ch == 0) {
-            cin.clear();
-            cin.ignore(1000, '\n');
-            return;
+        cout << "[1] Schedule outfit  [2] Remove plan  [3] Optional purchase awareness  [0] Back\nChoice: ";
+        int choice;
+        if (!(cin >> choice)) {
+            cin.clear(); cin.ignore(10000, '\n');
+            cout << "Invalid input. Please enter a menu number.\n";
+            continue;
         }
+        cin.ignore(10000, '\n');
+        if (choice == 0) return;
 
-        cin.ignore();
-        PlannerRecord rec;
-        cout << "Date (YYYY-MM-DD): ";
-        getline(cin, rec.date);
-        cout << "Occasion: ";
-        getline(cin, rec.occasion);
-        cout << "Outfit Description: ";
-        getline(cin, rec.outfitDetails);
-        plannedOutfits.push_back(rec);
-        savePlanner();
-        cout << "[SUCCESS] Scheduled and saved!\n";
+        if (choice == 1) {
+            PlannerRecord record;
+            cout << "Date (YYYY-MM-DD): ";
+            getline(cin, record.date);
+            cout << "Occasion (e.g. University, Office, Wedding, Casual, Travel): ";
+            getline(cin, record.occasion);
+            cout << "Outfit description (items from your wardrobe): ";
+            getline(cin, record.outfitDetails);
+            if (record.date.empty() || record.occasion.empty() || record.outfitDetails.empty()) {
+                cout << "Date, occasion, and outfit description are required. Plan not saved.\n";
+                continue;
+            }
+            const bool duplicate = any_of(plannedOutfits.begin(), plannedOutfits.end(),
+                [&](const PlannerRecord& existing) {
+                    return existing.date == record.date && existing.occasion == record.occasion;
+                });
+            if (duplicate) {
+                cout << "A plan already exists for this date and occasion. Remove it first to replace it.\n";
+                continue;
+            }
+            plannedOutfits.push_back(record);
+            savePlanner();
+            cout << "Outfit plan saved.\n";
+        } else if (choice == 2) {
+            if (plannedOutfits.empty()) {
+                cout << "There are no plans to remove.\n";
+                continue;
+            }
+            cout << "Enter plan number to remove (1-" << plannedOutfits.size() << "): ";
+            size_t index;
+            if (!(cin >> index) || index == 0 || index > plannedOutfits.size()) {
+                cin.clear(); cin.ignore(10000, '\n');
+                cout << "Invalid plan number. Nothing removed.\n";
+                continue;
+            }
+            cin.ignore(10000, '\n');
+            plannedOutfits.erase(plannedOutfits.begin() + static_cast<long>(index - 1));
+            savePlanner();
+            cout << "Plan removed and saved.\n";
+        } else if (choice == 3) {
+            budgetAdvisor();
+        } else {
+            cout << "Invalid choice. Please choose 0-3.\n";
+        }
     }
+}
