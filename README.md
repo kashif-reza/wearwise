@@ -1,6 +1,6 @@
 # WearWise — Offline Smart Fashion & Wardrobe Assistant
 
-WearWise is a C++17 console application for managing a personal wardrobe, exploring outfit combinations, planning outfits, tracking outfit history, and monitoring clothing expenses. This repository remains a **console-based C++ project**; it is not a website.
+WearWise is a C++17 console application for managing a personal wardrobe, exploring outfit combinations, planning outfits, and tracking outfit history. This repository remains a **console-based C++ project**; it is not a website.
 
 ## Refactored source structure
 
@@ -27,7 +27,7 @@ WearWise is a C++17 console application for managing a personal wardrobe, explor
 - Occasion and season selection
 - Profile and body measurement storage
 - Outfit planner and persistent outfit history
-- Monthly budget and expense total
+- Optional purchase-awareness helper integrated into the Style Planner (not a primary finance feature)
 - Color harmony rules
 - AI try-on prompt generation (prompt text only; does not generate images)
 - TXT-based local persistence
@@ -77,6 +77,6 @@ The program includes menu actions for adding wardrobe items and recording outfit
 
 ## Important notes
 
-- The budget uses a configurable currency symbol currently displayed as `$`; it is not automatically converted to BDT or another currency.
+- Optional purchase-awareness values are displayed in Bangladeshi Taka (BDT / ৳). This is a gentle helper inside the Style Planner, not a core finance feature.
 - The outfit scoring system is a heuristic and does not guarantee professional styling or exact garment sizing.
 - This is an offline, single-user console application.
