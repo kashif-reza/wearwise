@@ -208,6 +208,21 @@ using namespace std;
         const string bottom = bottoms[bottomPick(rng)];
         const string shoe = shoes[shoePick(rng)];
         const string finish = finishing[finishPick(rng)];
+        string styleTip;
+        if (style == "Minimalist") styleTip = "keep the silhouette clean, use simple shapes, and limit the palette to two or three colours";
+        else if (style == "Smart Casual") styleTip = "combine one polished piece, such as a structured shirt, with a relaxed but neat item";
+        else if (style == "Streetwear") styleTip = "try a relaxed fit, one statement piece, and balanced proportions";
+        else if (style == "Traditional") styleTip = "choose a traditional silhouette and keep accessories coordinated rather than crowded";
+        else if (style == "Sporty") styleTip = "prioritise movement, breathable materials, and supportive footwear";
+        else styleTip = "keep the outfit relaxed, comfortable, and coordinated";
+        string contextTip = location == "Mostly outdoors"
+            ? "For outdoor time, consider sun protection or a compact umbrella depending on the forecast"
+            : (location == "Mostly indoors" ? "For indoor settings, avoid unnecessary heavy layers" : "Choose a layer that is easy to remove when moving between places");
+        string moodTip = mood == "Energetic" ? "Use one brighter accent colour to give the look energy"
+            : (mood == "Low-key" ? "Choose calm neutrals and keep accessories subtle"
+            : (mood == "Confident" ? "Add one structured piece to make the outfit feel intentional"
+            : "Let comfort lead and add one small detail that expresses your personality"));
+
 
         cout << "\n======================================================================\n";
         cout << "                       YOUR RANDOM STYLE PLAN                          \n";
@@ -220,6 +235,9 @@ using namespace std;
         cout << "BOTTOM:   " << bottom << "\n";
         cout << "FOOTWEAR: " << shoe << "\n";
         cout << "STYLE TIP: " << finish << ".\n";
+        cout << "FIT TIP:   " << styleTip << ".\n";
+        cout << "DAY TIP:   " << contextTip << ".\n";
+        cout << "MOOD TIP:  " << moodTip << ".\n";
         cout << "COLOUR TIP: try a neutral base such as navy, white, beige, grey, or black,\n";
         cout << "            then add one accent colour that suits your mood.\n";
         cout << "----------------------------------------------------------------------\n";
