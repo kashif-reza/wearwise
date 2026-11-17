@@ -1,0 +1,38 @@
+# id|name|category|group|color|sizes|season|occasion|style|price|owned|available
+M118|Pique Cotton Polo Shirt|Upper|Men|Forest Green|S,M,L,XL|Summer,All-Season|University,Casual,Smart Casual|Smart Casual|32.00|1|1
+M119|Linen Blend Casual Shirt|Upper|Men|Sky Blue|S,M,L,XL|Summer,Hot weather|University,Travel,Casual|Minimalist|39.00|0|1
+M120|Oxford Stripe Shirt|Upper|Men|Light Blue|S,M,L,XL|All-Season|Office,University,Interview|Smart Casual|46.00|0|1
+M121|Classic Crewneck Sweatshirt|Upper|Men|Grey|S,M,L,XL|Winter,Cold weather|University,Casual,Travel|Casual|42.00|0|1
+M122|Lightweight Hoodie|Upper|Men|Charcoal|S,M,L,XL|Winter,Cold weather|University,Casual,Travel|Streetwear|48.00|0|1
+M123|Casual Linen Trousers|Lower|Men|Beige|S,M,L,XL|Summer,Hot weather|Office,Travel,Smart Casual|Minimalist|52.00|0|1
+M124|Dark Wash Straight Jeans|Lower|Men|Indigo|S,M,L,XL|All-Season|Casual,University,Travel|Casual|58.00|0|1
+M125|Relaxed Cargo Trousers|Lower|Men|Olive|S,M,L,XL|All-Season|Casual,Travel,University|Streetwear|49.00|0|1
+M126|Tailored Navy Waistcoat|Outerwear|Men|Navy|S,M,L,XL|All-Season|Formal,Wedding,Office|Formal|78.00|0|1
+M127|Quilted Lightweight Jacket|Outerwear|Men|Black|M,L,XL|Winter,Cold weather|Casual,Travel,University|Casual|88.00|0|1
+M128|Canvas Everyday Sneakers|Footwear|Men|White|M,L,XL|Summer,All-Season|Casual,University,Travel|Casual|52.00|0|1
+M129|Suede Desert Boots|Footwear|Men|Tan|M,L,XL|Winter,All-Season|Casual,Smart Casual|Smart Casual|79.00|0|1
+M130|Cotton Baseball Cap|Accessory|Men|Navy|One Size|Summer,All-Season|Casual,Sports,Travel|Streetwear|18.00|0|1
+M131|Canvas Crossbody Bag|Accessory|Unisex|Olive|One Size|All-Season|University,Travel,Casual|Casual|28.00|0|1
+W214|Ribbed Cotton Polo Top|Upper|Women|White|XS,S,M,L|Summer,All-Season|University,Casual,Smart Casual|Minimalist|34.00|0|1
+W215|Linen Button-Front Shirt|Upper|Women|Sage|XS,S,M,L|Summer,Hot weather|Office,University,Travel|Smart Casual|44.00|0|1
+W216|Wrap Midi Dress|Upper|Women|Burgundy|XS,S,M,L|All-Season|Wedding,Formal,Casual|Elegant|68.00|0|1
+W217|Relaxed Knit Cardigan|Outerwear|Women|Cream|S,M,L|Winter,Cold weather|Office,University,Casual|Minimalist|57.00|0|1
+W218|Lightweight Denim Jacket|Outerwear|Women|Blue|S,M,L|All-Season|Casual,University,Travel|Casual|64.00|0|1
+W219|Wide-Leg Linen Pants|Lower|Women|Beige|XS,S,M,L|Summer,Hot weather|Office,Travel,Smart Casual|Minimalist|59.00|0|1
+W220|Straight-Leg Tailored Pants|Lower|Women|Charcoal|XS,S,M,L|All-Season|Office,Interview,Formal|Formal|62.00|0|1
+W221|Pleated Midi Skirt|Lower|Women|Olive|XS,S,M,L|All-Season|University,Casual,Smart Casual|Elegant|51.00|0|1
+W222|Canvas Slip-On Shoes|Footwear|Women|White|S,M,L|Summer,All-Season|Casual,University,Travel|Casual|42.00|0|1
+W223|Ballet Flats|Footwear|Women|Black|S,M,L|All-Season|Office,Formal,Smart Casual|Classic|48.00|0|1
+W224|Lightweight Running Shoes|Footwear|Women|Grey|S,M,L|All-Season|Sports,Casual,Travel|Sportswear|72.00|0|1
+W225|Minimalist Tote Bag|Accessory|Women|Tan|One Size|All-Season|Office,University,Travel|Minimalist|36.00|0|1
+W226|Soft Cotton Scarf|Accessory|Women|Dusty Pink|One Size|Winter,All-Season|Office,Casual,Traditional|Elegant|22.00|0|1
+K310|Cotton Polo Tee|Upper|Kids|Yellow|XS,S|Summer,All-Season|Casual,University|Casual|19.00|0|1
+K311|Lightweight Zip Hoodie|Upper|Kids|Navy|XS,S|Winter,Cold weather|Casual,Travel|Casual|29.00|0|1
+K312|Cotton Chino Shorts|Lower|Kids|Khaki|XS,S|Summer,Hot weather|Casual,Travel|Casual|20.00|0|1
+K313|Soft Jogger Pants|Lower|Kids|Grey|XS,S|Winter,All-Season|Casual,Sports|Sportswear|23.00|0|1
+K314|Rainproof Jacket|Outerwear|Kids|Yellow|XS,S|Rainy season|Travel,Casual|Sportswear|38.00|0|1
+K315|Lightweight Sandals|Footwear|Kids|Brown|XS,S|Summer,Hot weather|Casual,Travel|Casual|16.00|0|1
+K316|Kids Canvas Backpack|Accessory|Kids|Blue|One Size|All-Season|University,Travel|Casual|24.00|0|1
+U402|Unisex Oversized Graphic Tee|Upper|Unisex|Black|S,M,L,XL|Summer,All-Season|Casual,University,Travel|Streetwear|29.00|0|1
+U403|Unisex Zip-Up Windbreaker|Outerwear|Unisex|Navy|S,M,L,XL|Rainy season,Winter,All-Season|Travel,Sports,Casual|Sportswear|69.00|0|1
+U404|Unisex Knit Beanie|Accessory|Unisex|Charcoal|One Size|Winter,Cold weather|Casual,Travel|Streetwear|16.00|0|1

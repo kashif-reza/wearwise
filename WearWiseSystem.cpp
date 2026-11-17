@@ -8,6 +8,7 @@
 #include <random>
 #include <chrono>
 #include <cctype>
+#include <set>
 using namespace std;
 
     void WearWiseSystem::bootstrapFiles() {
@@ -83,6 +84,30 @@ using namespace std;
             out.close();
         }
 
+        // Add new catalogue examples without overwriting a user's existing wardrobe.
+        // This safely upgrades existing installations while preserving ownership/status.
+        set<string> existingIds;
+        {
+            ifstream currentItems(CLOTHING_FILE);
+            string existingLine;
+            while (getline(currentItems, existingLine)) {
+                auto fields = split(existingLine, '|');
+                if (!fields.empty()) existingIds.insert(fields[0]);
+            }
+        }
+        {
+            ifstream seedItems("clothing_seed.txt");
+            ofstream currentItems(CLOTHING_FILE, ios::app);
+            string seedLine;
+            while (getline(seedItems, seedLine)) {
+                if (seedLine.empty() || seedLine[0] == '#') continue;
+                auto fields = split(seedLine, '|');
+                if (fields.size() >= 12 && existingIds.insert(fields[0]).second) {
+                    currentItems << seedLine << "\n";
+                }
+            }
+        }
+
         ifstream bf(BUDGET_FILE);
         if (!bf.good()) {
             ofstream out(BUDGET_FILE);
@@ -105,53 +130,50 @@ using namespace std;
         }
     }
 
-    void WearWiseSystem::configureOccasionAndWeather() {
+    bool WearWiseSystem::configureOccasionAndWeather() {
         cout << "\n======================================================================\n";
-        cout << "                  CONFIGURE OCCASION & WEATHER                        \n";
+        cout << "                 TODAY'S OCCASION & WEATHER                           \n";
         cout << "======================================================================\n";
-        cout << "Current: Occasion = " << user.currentOccasion << " | Weather/Season = " << user.currentSeason << "\n\n";
+        cout << "Current: " << user.currentOccasion << " | " << user.currentSeason << "\n";
 
-        cout << "Select Occasion / Situation:\n";
-        cout << " [1] University / Campus / Classes\n";
-        cout << " [2] Office / Professional Workplace\n";
-        cout << " [3] Job Interview\n";
-        cout << " [4] Wedding / Formal Celebration\n";
-        cout << " [5] Casual Hangout / Outing\n";
-        cout << " [6] Travel / Commute\n";
-        cout << " [7] Sports / Fitness Training\n";
-        cout << " [0] Go Back (Cancel)\n";
-        cout << "Choice (0-7): ";
-        int occ;
-        if (cin >> occ && occ != 0) {
-            if (occ == 1) user.currentOccasion = "University";
-            else if (occ == 2) user.currentOccasion = "Office";
-            else if (occ == 3) user.currentOccasion = "Interview";
-            else if (occ == 4) user.currentOccasion = "Wedding";
-            else if (occ == 5) user.currentOccasion = "Casual";
-            else if (occ == 6) user.currentOccasion = "Travel";
-            else if (occ == 7) user.currentOccasion = "Sports";
-        } else if (occ == 0) {
-            cin.ignore();
-            return;
+        const vector<string> occasions = {
+            "University", "Office", "Interview", "Wedding", "Casual", "Travel", "Sports"
+        };
+        const vector<string> seasons = {
+            "Summer", "Winter", "Rainy season", "All-Season"
+        };
+        int choice = 0;
+        while (true) {
+            cout << "\nSelect today's situation:\n";
+            for (size_t i = 0; i < occasions.size(); ++i)
+                cout << " [" << i + 1 << "] " << occasions[i] << "\n";
+            cout << " [0] Cancel\nChoice: ";
+            if (cin >> choice && choice >= 0 && choice <= static_cast<int>(occasions.size())) break;
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cout << "Invalid selection. Please try again.\n";
         }
+        cin.ignore(10000, '\n');
+        if (choice == 0) return false;
+        user.currentOccasion = occasions[choice - 1];
 
-        cout << "\nSelect Current Weather / Season:\n";
-        cout << " [1] Summer / Hot Weather\n";
-        cout << " [2] Winter / Cold Weather\n";
-        cout << " [3] Rainy Season\n";
-        cout << " [4] All-Season / Moderate Room Temperature\n";
-        cout << " [0] Go Back (Cancel)\n";
-        cout << "Choice (0-4): ";
-        int seas;
-        if (cin >> seas && seas != 0) {
-            if (seas == 1) user.currentSeason = "Summer";
-            else if (seas == 2) user.currentSeason = "Winter";
-            else if (seas == 3) user.currentSeason = "Rainy season";
-            else if (seas == 4) user.currentSeason = "All-Season";
+        while (true) {
+            cout << "\nSelect today's weather / season:\n";
+            for (size_t i = 0; i < seasons.size(); ++i)
+                cout << " [" << i + 1 << "] " << seasons[i] << "\n";
+            cout << " [0] Cancel\nChoice: ";
+            if (cin >> choice && choice >= 0 && choice <= static_cast<int>(seasons.size())) break;
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cout << "Invalid selection. Please try again.\n";
         }
-        cin.ignore();
+        cin.ignore(10000, '\n');
+        if (choice == 0) return false;
+        user.currentSeason = seasons[choice - 1];
         saveUserProfile();
-        cout << "\n[SAVED] System now tuned for: " << user.currentOccasion << " (" << user.currentSeason << ").\n";
+        cout << "\n[SAVED] Today's context: " << user.currentOccasion
+             << " | " << user.currentSeason << "\n";
+        return true;
     }
 
     void WearWiseSystem::runDashboard() {
@@ -167,19 +189,17 @@ using namespace std;
             cout << " Active User: " << user.name << " [" << user.targetGroup << "]\n";
             cout << " Situation:   " << user.currentOccasion << " | Weather: " << user.currentSeason << "\n";
             cout << "======================================================================\n";
-            cout << "  [1] Ideal Stylist Recommendation (Occasion & Weather Based, No Closet Needed)\n";
-            cout << "  [2] Smart Wardrobe Recommendation (Strictly From What You Own & Clean)\n";
-            cout << "  [3] Select Occasion, Situation & Weather\n";
-            cout << "  [4] Explore Color Harmonies & Palettes\n";
-            cout << "  [5] My Wardrobe (Inventory & Laundry Tracking)\n";
-            cout << "  [6] Daily Outfit Planner\n";
-            cout << "  [7] My Profile & Anthropometric Measurements\n";
-            cout << "  [8] Budget & Purchase Advisor\n";
-            cout << "  [9] Outfit Usage History\n";
-            cout << " [10] AI Virtual Try-On Prompt Generator\n";
+            cout << "  [1] What Should I Wear Today? (Style Ideas + My Wardrobe)\n";
+            cout << "  [2] Explore Color Harmonies & Palettes\n";
+            cout << "  [3] My Wardrobe (Inventory & Laundry Tracking)\n";
+            cout << "  [4] Style & Outfit Planner\n";
+            cout << "  [5] My Profile & Anthropometric Measurements\n";
+            cout << "  [6] Outfit Usage History\n";
+            cout << "  [7] AI Virtual Try-On Prompt Generator\n";
+            cout << "  [8] Clothing Care Assistant\n";
             cout << "  [0] Exit Application\n";
             cout << "======================================================================\n";
-            cout << "Enter option (0-10): ";
+            cout << "Enter option (0-8): ";
 
             int selection;
             if (!(cin >> selection)) {
@@ -189,21 +209,19 @@ using namespace std;
             }
 
             switch (selection) {
-                case 1:  getIdealStylistRecommendation(); break;
-                case 2:  getOwnedWardrobeRecommendation(); break;
-                case 3:  configureOccasionAndWeather(); break;
-                case 4:  exploreColors(); break;
-                case 5:  manageWardrobe(); break;
-                case 6:  dailyOutfitPlanner(); break;
-                case 7:  displayProfile(); break;
-                case 8:  budgetAdvisor(); break;
-                case 9:  showHistory(); break;
-                case 10: generateAIPrompt(); break;
+                case 1:  whatShouldIWearToday(); break;
+                case 2:  exploreColors(); break;
+                case 3:  manageWardrobe(); break;
+                case 4:  dailyOutfitPlanner(); break;
+                case 5:  displayProfile(); break;
+                case 6:  showHistory(); break;
+                case 7:  generateAIPrompt(); break;
+                case 8:  clothingCareAssistant(); break;
                 case 0:
                     cout << "\nSaving all session data to text files. Exiting WearWise...\n";
                     return;
                 default:
-                    cout << "Invalid choice. Please enter a number between 0 and 10.\n";
+                    cout << "Invalid choice. Please enter a number between 0 and 8.\n";
             }
         }
     }

@@ -1,82 +1,91 @@
 # WearWise — Offline Smart Fashion & Wardrobe Assistant
 
-WearWise is a C++17 console application for managing a personal wardrobe, exploring outfit combinations, planning outfits, tracking outfit history, and monitoring clothing expenses. This repository remains a **console-based C++ project**; it is not a website.
-
-## Refactored source structure
-
-- `main.cpp` — application entry point
-- `UserProfile.h` — user profile data structure
-- `ClothingItem.h` — clothing, color-rule, and planner data structures
-- `StringUtils.h/.cpp` — shared string helpers
-- `ProfileManager.cpp` — profile setup, persistence, and display
-- `WardrobeManager.cpp` — wardrobe inventory and laundry status
-- `OutfitRecommendation.cpp` — recommendation scoring and outfit suggestions
-- `OutfitPlanner.cpp` — outfit scheduling
-- `BudgetManager.cpp` — budget and purchase tracking
-- `HistoryManager.cpp` — outfit usage history
-- `ColorHarmony.cpp` — color compatibility and palette explorer
-- `AIPromptGenerator.cpp` — AI virtual try-on prompt generation
-- `WearWiseSystem.h/.cpp` — system coordinator, file initialization, and main menu
+WearWise is a C++17 console application for managing a personal wardrobe, exploring outfit combinations, planning outfits, and learning how to care for clothing. It uses local TXT files and does not require a database or internet connection.
 
 ## Features
 
-- Men’s, women’s, kids’, and unisex catalogue entries
-- Upper wear, lower wear, footwear, outerwear, and accessories (for example watches, belts, bags, and sunglasses)
-- Wardrobe inventory and clean/laundry availability flag
-- Ideal outfit recommendations and recommendations from owned, ready items
-- Occasion and season selection
-- Profile and body measurement storage
-- Outfit planner and persistent outfit history
-- Monthly budget and expense total
-- Color harmony rules
-- AI try-on prompt generation (prompt text only; does not generate images)
-- TXT-based local persistence
+1. **What Should I Wear Today?**
+   - **Random Style Inspiration** asks about the day's situation, weather, location, mood, preferred style, and activity in a shuffled order.
+   - It generates a style idea from garment types; it does not require those exact clothes to exist in your wardrobe.
+   - **My Wardrobe Recommendation** asks for today's occasion and weather, then recommends only clothes marked as owned and clean/ready.
+2. **Explore Color Harmonies** — browse complementary colour combinations.
+3. **My Wardrobe** — view owned items, add garments, and toggle clean/laundry status.
+4. **Style & Outfit Planner** — schedule outfits and optionally review purchase awareness.
+5. **My Profile** — save personal style preferences and measurements locally.
+6. **Outfit Usage History** — record outfits you have worn.
+7. **AI Virtual Try-On Prompt Generator** — create a text prompt for an external image tool; WearWise does not generate images.
+8. **Clothing Care Assistant**
+   - Fabric washing, drying, ironing, and storage guidance.
+   - Common stain-removal suggestions.
+   - Everyday garment and wardrobe maintenance tips.
 
-## Build
+## Project structure
 
-### Using g++
+- `main.cpp` — application entry point
+- `WearWiseSystem.h/.cpp` — system coordinator, data initialization, and main menu
+- `UserProfile.h` — profile data structure
+- `ClothingItem.h` — clothing, colour-rule, and planner data structures
+- `StringUtils.h/.cpp` — shared string helpers
+- `ProfileManager.cpp` — profile setup and persistence
+- `WardrobeManager.cpp` — wardrobe inventory and laundry status
+- `OutfitRecommendation.cpp` — daily style inspiration and wardrobe recommendations
+- `OutfitPlanner.cpp` — outfit scheduling
+- `BudgetManager.cpp` — optional purchase-awareness helper
+- `HistoryManager.cpp` — outfit usage history
+- `ColorHarmony.cpp` — colour compatibility explorer
+- `AIPromptGenerator.cpp` — AI try-on prompt generation
+- `ClothingCareAssistant.cpp` — fabric, stain, and maintenance guidance
 
-From the project directory:
+## Build and run
 
-```bash
-g++ -std=c++17 -Wall -Wextra -pedantic *.cpp -o wearwise
-```
+### CMake (recommended)
 
-Run:
-
-```bash
-./wearwise
-```
-
-On Windows (MinGW):
-
-```powershell
-g++ -std=c++17 -Wall -Wextra -pedantic *.cpp -o wearwise.exe
-.\wearwise.exe
-```
-
-### Using CMake
+From the project root:
 
 ```bash
 cmake -S . -B build
 cmake --build build
 ```
 
-## TXT data files
+On Windows with MinGW, run:
 
-On first launch, WearWise creates the following data files in the **current working directory**:
+```powershell
+.\\build\\wearwise.exe
+```
 
-- `users.txt` — saved profile
-- `clothing.txt` — catalogue and owned items
-- `colors.txt` — color compatibility rules
-- `budget.txt` — monthly budget and accumulated expenditure
-- `history.txt` — worn outfit records
+The exact executable path can vary by generator. If needed, search the `build` folder for `wearwise.exe`.
+
+### Compile directly with g++
+
+From the project root:
+
+```powershell
+g++ -std=c++17 -Wall -Wextra -pedantic *.cpp -o wearwise.exe
+.\\wearwise.exe
+```
+
+## TXT files and sample data
+
+WearWise uses simple pipe-separated TXT files in the current working directory:
+
+- `users.txt` — saved user profile
+- `clothing.txt` — wardrobe and catalogue records
+- `clothing_seed.txt` — additional sample clothing catalogue entries
+- `colors.txt` — colour compatibility rules
+- `budget.txt` — optional budget and expenditure values
+- `history.txt` — outfit usage records
 - `planner.txt` — scheduled outfits
+- `fabric_care.txt` — fabric-specific care instructions
+- `stain_guide.txt` — common stain treatment suggestions
+- `maintenance_tips.txt` — everyday clothing-care tips
 
-The program includes menu actions for adding wardrobe items and recording outfit history; you do not need to manually edit the TXT files for these actions. Keep a backup before editing any TXT file directly. Records use pipe (`|`) separators, so avoid entering the pipe character inside values.
+On startup, WearWise creates its original working files when they are missing. It also appends new sample catalogue entries from `clothing_seed.txt` only when their IDs are not already present. Existing ownership and laundry statuses are preserved; the seed file does not overwrite your personal wardrobe records.
 
-## Important notes
+Keep these TXT files in the project folder and run WearWise with the project root as the current working directory. Back them up before editing manually. The pipe character (`|`) is used as a field separator, so do not enter it inside a field.
 
-- The budget uses a configurable currency symbol currently displayed as `$`; it is not automatically converted to BDT or another currency.
-- The outfit scoring system is a heuristic and does not guarantee professional styling or exact garment sizing.
-- This is an offline, single-user console application.
+## Notes
+
+- The clothing catalogue is sample data. Edit your wardrobe through the application to mark items as owned or in laundry.
+- Style recommendations are rule-based suggestions, not professional tailoring or guaranteed size advice.
+- Follow the care label on each garment first. Stain treatments should be tested on a hidden area, especially for delicate or valuable fabrics.
+- WearWise is a local, single-user console application.
