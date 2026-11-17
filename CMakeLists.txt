@@ -17,4 +17,5 @@ add_executable(wearwise
     HistoryManager.cpp
     ColorHarmony.cpp
     AIPromptGenerator.cpp
+    ClothingCareAssistant.cpp
 )
