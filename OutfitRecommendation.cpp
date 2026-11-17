@@ -78,6 +78,157 @@ using namespace std;
         return max(0, min(100, score));
     }
 
+    void WearWiseSystem::whatShouldIWearToday() {
+        while (true) {
+            cout << "\n======================================================================\n";
+            cout << "                    WHAT SHOULD I WEAR TODAY?                          \n";
+            cout << "======================================================================\n";
+            cout << "[1] Random Style Inspiration (does not check your wardrobe)\n";
+            cout << "[2] My Wardrobe Recommendation (only my own clean clothes)\n";
+            cout << "[0] Back to main menu\n";
+            cout << "Choice: ";
+
+            int choice;
+            if (!(cin >> choice)) {
+                cin.clear();
+                cin.ignore(10000, '\n');
+                cout << "Please enter a valid number.\n";
+                continue;
+            }
+            cin.ignore(10000, '\n');
+
+            if (choice == 0) return;
+            if (choice == 1) {
+                getRandomStyleInspiration();
+            } else if (choice == 2) {
+                cout << "\nLet's update today's situation before checking your own wardrobe.\n";
+                configureOccasionAndWeather();
+                getOwnedWardrobeRecommendation();
+            } else {
+                cout << "Please choose 0, 1, or 2.\n";
+            }
+        }
+    }
+
+    void WearWiseSystem::getRandomStyleInspiration() {
+        cout << "\n======================================================================\n";
+        cout << "                      RANDOM STYLE INSPIRATION                         \n";
+        cout << "     Answer a few quick questions. Your closet is not required.        \n";
+        cout << "======================================================================\n";
+
+        vector<string> questions = {"occasion", "weather", "location", "mood", "style", "activity"};
+        unsigned seed = static_cast<unsigned>(
+            chrono::steady_clock::now().time_since_epoch().count());
+        mt19937 rng(seed);
+        shuffle(questions.begin(), questions.end(), rng);
+
+        string occasion, weather, location, mood, style, activity;
+        for (const string& question : questions) {
+            vector<string> options;
+            string label;
+            if (question == "occasion") {
+                label = "Today's situation";
+                options = {"University / Classes", "Office / Work", "Casual outing / Cafe",
+                           "Wedding / Celebration", "Travel / Commute", "Sports / Fitness", "At home"};
+            } else if (question == "weather") {
+                label = "Weather";
+                options = {"Hot and sunny", "Rainy or humid", "Cool / Winter", "Mild / Comfortable"};
+            } else if (question == "location") {
+                label = "Where will you spend most of your time?";
+                options = {"Mostly indoors", "Mostly outdoors", "A mix of indoor and outdoor"};
+            } else if (question == "mood") {
+                label = "Today's mood";
+                options = {"Confident", "Relaxed", "Creative", "Energetic", "Low-key"};
+            } else if (question == "style") {
+                label = "Style direction";
+                options = {"Minimalist", "Smart Casual", "Casual", "Streetwear", "Traditional", "Sporty"};
+            } else {
+                label = "How active will your day be?";
+                options = {"Mostly sitting", "A lot of walking", "A short event", "Physically active"};
+            }
+
+            cout << "\n" << label << ":\n";
+            for (size_t i = 0; i < options.size(); ++i)
+                cout << " [" << i + 1 << "] " << options[i] << "\n";
+            int answer = 0;
+            while (true) {
+                cout << "Choose (1-" << options.size() << "): ";
+                if (cin >> answer && answer >= 1 && answer <= static_cast<int>(options.size())) {
+                    cin.ignore(10000, '\n');
+                    break;
+                }
+                cin.clear();
+                cin.ignore(10000, '\n');
+                cout << "That selection is not valid. Try again.\n";
+            }
+            const string selected = options[answer - 1];
+            if (question == "occasion") occasion = selected;
+            else if (question == "weather") weather = selected;
+            else if (question == "location") location = selected;
+            else if (question == "mood") mood = selected;
+            else if (question == "style") style = selected;
+            else activity = selected;
+        }
+
+        vector<string> tops;
+        vector<string> bottoms;
+        vector<string> shoes;
+        vector<string> finishing;
+        if (weather == "Hot and sunny") {
+            tops = {"breathable cotton or linen shirt", "lightweight polo shirt", "relaxed cotton T-shirt", "airy kurta"};
+            bottoms = {"lightweight chinos", "linen trousers", "straight-leg cotton pants", "clean denim"};
+            finishing = {"keep the layers minimal and choose breathable fabrics", "use a light neutral palette and avoid heavy layering"};
+        } else if (weather == "Rainy or humid") {
+            tops = {"quick-dry polo or T-shirt", "lightweight shirt with a breathable inner layer", "simple kurta in a quick-drying fabric"};
+            bottoms = {"quick-dry straight trousers", "comfortable chinos", "dark denim"};
+            finishing = {"add a light water-resistant outer layer", "choose darker colours and keep a compact umbrella with you"};
+        } else if (weather == "Cool / Winter") {
+            tops = {"long-sleeve shirt with a knit sweater", "crewneck sweatshirt", "turtleneck or warm kurta"};
+            bottoms = {"tailored trousers", "dark straight-leg denim", "comfortable chinos"};
+            finishing = {"add a light jacket or structured overshirt", "use one warm layer instead of several bulky layers"};
+        } else {
+            tops = {"Oxford shirt", "polo shirt", "clean crewneck T-shirt", "lightweight blouse or kurta"};
+            bottoms = {"straight-leg trousers", "dark denim", "chinos", "a simple midi skirt"};
+            finishing = {"carry a light overshirt in case the temperature changes", "keep the outfit balanced with one relaxed and one structured piece"};
+        }
+
+        if (activity == "A lot of walking" || activity == "Physically active") {
+            shoes = {"supportive clean sneakers", "lightweight walking shoes"};
+        } else if (occasion == "Office / Work" || occasion == "Wedding / Celebration") {
+            shoes = {"clean loafers or formal shoes", "simple low-profile dress shoes"};
+        } else {
+            shoes = {"minimal sneakers", "comfortable loafers or flats", "clean casual shoes"};
+        }
+
+        uniform_int_distribution<int> topPick(0, static_cast<int>(tops.size()) - 1);
+        uniform_int_distribution<int> bottomPick(0, static_cast<int>(bottoms.size()) - 1);
+        uniform_int_distribution<int> shoePick(0, static_cast<int>(shoes.size()) - 1);
+        uniform_int_distribution<int> finishPick(0, static_cast<int>(finishing.size()) - 1);
+        const string top = tops[topPick(rng)];
+        const string bottom = bottoms[bottomPick(rng)];
+        const string shoe = shoes[shoePick(rng)];
+        const string finish = finishing[finishPick(rng)];
+
+        cout << "\n======================================================================\n";
+        cout << "                       YOUR RANDOM STYLE PLAN                          \n";
+        cout << "======================================================================\n";
+        cout << "Situation: " << occasion << " | Weather: " << weather << "\n";
+        cout << "Location:  " << location << " | Mood: " << mood << "\n";
+        cout << "Style:     " << style << " | Activity: " << activity << "\n";
+        cout << "----------------------------------------------------------------------\n";
+        cout << "TOP:      " << top << "\n";
+        cout << "BOTTOM:   " << bottom << "\n";
+        cout << "FOOTWEAR: " << shoe << "\n";
+        cout << "STYLE TIP: " << finish << ".\n";
+        cout << "COLOUR TIP: try a neutral base such as navy, white, beige, grey, or black,\n";
+        cout << "            then add one accent colour that suits your mood.\n";
+        cout << "----------------------------------------------------------------------\n";
+        cout << "This is style inspiration, not an inventory check. Use similar garment\n";
+        cout << "types from your own closet; you do not need to own these exact items.\n";
+        cout << "\nPress Enter to return...";
+        cin.get();
+    }
+
     void WearWiseSystem::getIdealStylistRecommendation() {
         cout << "\n======================================================================\n";
         cout << "          PURPOSE 1: IDEAL STYLIST & OCCASION RECOMMENDATION          \n";
