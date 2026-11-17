@@ -38,7 +38,6 @@ public:
     bool areColorsCompatible(const string& colorA, const string& colorB);
     int calculateCompatibilityScore(const ClothingItem& upper, const ClothingItem& lower,
                                     const ClothingItem& foot, vector<string>& breakdown);
-    void getIdealStylistRecommendation();
     void whatShouldIWearToday();
     void getRandomStyleInspiration();
     void clothingCareAssistant();
