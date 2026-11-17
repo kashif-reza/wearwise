@@ -102,8 +102,7 @@ using namespace std;
                 getRandomStyleInspiration();
             } else if (choice == 2) {
                 cout << "\nLet's update today's situation before checking your own wardrobe.\n";
-                configureOccasionAndWeather();
-                getOwnedWardrobeRecommendation();
+                if (configureOccasionAndWeather()) getOwnedWardrobeRecommendation();
             } else {
                 cout << "Please choose 0, 1, or 2.\n";
             }
@@ -192,9 +191,29 @@ using namespace std;
             finishing = {"carry a light overshirt in case the temperature changes", "keep the outfit balanced with one relaxed and one structured piece"};
         }
 
-        if (activity == "A lot of walking" || activity == "Physically active") {
+        if (style == "Minimalist") {
+            tops = {"plain cotton T-shirt", "clean Oxford shirt", "simple knit top"};
+            bottoms = {"straight-leg neutral trousers", "dark clean denim", "tailored chinos"};
+        } else if (style == "Smart Casual") {
+            tops = {"Oxford button-down shirt", "fine-knit polo shirt", "structured blouse"};
+            bottoms = {"tailored chinos", "straight-leg trousers", "dark clean denim"};
+        } else if (style == "Casual") {
+            tops = {"cotton T-shirt", "relaxed polo shirt", "casual overshirt"};
+            bottoms = {"straight denim", "cotton chinos", "relaxed trousers"};
+        } else if (style == "Streetwear") {
+            tops = {"oversized graphic T-shirt", "boxy sweatshirt", "layered long-sleeve tee"};
+            bottoms = {"relaxed cargo trousers", "wide-leg denim", "straight-leg relaxed jeans"};
+        } else if (style == "Traditional") {
+            tops = {"kurta", "traditional tunic", "embroidered long shirt"};
+            bottoms = {"straight-cut trousers", "churidar bottoms", "tailored traditional pants"};
+        } else if (style == "Sporty") {
+            tops = {"moisture-wicking training T-shirt", "athletic polo", "lightweight sports top"};
+            bottoms = {"joggers", "track pants", "athletic shorts"};
+        }
+
+        if (activity == "A lot of walking" || activity == "Physically active" || style == "Sporty") {
             shoes = {"supportive clean sneakers", "lightweight walking shoes"};
-        } else if (occasion == "Office / Work" || occasion == "Wedding / Celebration") {
+        } else if (style == "Streetwear") {\n            shoes = {"high-top sneakers", "chunky low-top sneakers"};\n        } else if (occasion == "Office / Work" || occasion == "Wedding / Celebration") {
             shoes = {"clean loafers or formal shoes", "simple low-profile dress shoes"};
         } else {
             shoes = {"minimal sneakers", "comfortable loafers or flats", "clean casual shoes"};
