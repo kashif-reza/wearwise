@@ -268,73 +268,6 @@ using namespace std;
         cin.get();
     }
 
-    void WearWiseSystem::getIdealStylistRecommendation() {
-        cout << "\n======================================================================\n";
-        cout << "          PURPOSE 1: IDEAL STYLIST & OCCASION RECOMMENDATION          \n";
-        cout << "  (Fashion Designer Mode: Generates ideal combinations without        \n";
-        cout << "   requiring you to own or store the items in your closet first)      \n";
-        cout << "======================================================================\n";
-        cout << " Active Situation Filter:\n";
-        cout << " - Demographic Section: " << user.targetGroup << "\n";
-        cout << " - Occasion/Event:      " << user.currentOccasion << "\n";
-        cout << " - Weather/Season:      " << user.currentSeason << "\n";
-        cout << " - Preferred Cut:       " << user.preferredFit << "\n";
-        cout << "----------------------------------------------------------------------\n";
-
-        struct RankedCombo {
-            ClothingItem upper;
-            ClothingItem lower;
-            ClothingItem foot;
-            int score;
-            vector<string> breakdown;
-        };
-
-        vector<ClothingItem> uppers, lowers, feet;
-        // Queries ENTIRE fashion catalogue regardless of isOwned / isAvailable
-        for (const auto& item : clothingCatalogue) {
-            bool matchesGroup = (toLower(item.targetGroup) == toLower(user.targetGroup) || toLower(item.targetGroup) == "unisex");
-            if (matchesGroup) {
-                if (item.category == "Upper") uppers.push_back(item);
-                if (item.category == "Lower") lowers.push_back(item);
-                if (item.category == "Footwear") feet.push_back(item);
-            }
-        }
-
-        if (uppers.empty() || lowers.empty() || feet.empty()) {
-            cout << "Catalogue does not have sufficient items for " << user.targetGroup << ".\n";
-            return;
-        }
-
-        vector<RankedCombo> validCombos;
-        for (const auto& u : uppers) {
-            for (const auto& l : lowers) {
-                for (const auto& f : feet) {
-                    vector<string> reasons;
-                    int sc = calculateCompatibilityScore(u, l, f, reasons);
-                    validCombos.push_back({u, l, f, sc, reasons});
-                }
-            }
-        }
-
-        sort(validCombos.begin(), validCombos.end(), [](const RankedCombo& a, const RankedCombo& b) {
-            return a.score > b.score;
-        });
-
-        int limit = min(3, (int)validCombos.size());
-        for (int i = 0; i < limit; ++i) {
-            cout << "\n[IDEAL OUTFIT " << (i + 1) << "] (Compatibility Score: " << validCombos[i].score << " / 100)\n";
-            cout << "  - Top:      " << validCombos[i].upper.name << " [" << validCombos[i].upper.color << ", " << validCombos[i].upper.style << "]\n";
-            cout << "  - Bottom:   " << validCombos[i].lower.name << " [" << validCombos[i].lower.color << ", " << validCombos[i].lower.style << "]\n";
-            cout << "  - Footwear: " << validCombos[i].foot.name << " [" << validCombos[i].foot.color << "]\n";
-            cout << "  Stylist Rationale:\n";
-            for (const auto& r : validCombos[i].breakdown) {
-                cout << "    * " << r << "\n";
-            }
-        }
-        cout << "\nPress Enter to return to menu...";
-        cin.ignore(1000, '\n');
-    }
-
     void WearWiseSystem::getOwnedWardrobeRecommendation() {
         cout << "\n======================================================================\n";
         cout << "           PURPOSE 2: SMART WARDROBE RECOMMENDATION                   \n";
@@ -369,8 +302,8 @@ using namespace std;
             cout << " - Clean Tops:     " << uppers.size() << "\n";
             cout << " - Clean Bottoms:  " << lowers.size() << "\n";
             cout << " - Clean Footwear: " << feet.size() << "\n";
-            cout << "\nTip: Open Option 5 (My Wardrobe) to mark laundry items as clean,\n";
-            cout << "or use Option 1 (Ideal Stylist Recommendation) to get outfit ideas first.\n";
+            cout << "\nTip: Open Option 3 (My Wardrobe) to mark laundry items as clean,\n";
+            cout << "or use Option 1 (Random Style Inspiration) to get outfit ideas first.\n";
             cout << "\nPress Enter to return...";
             cin.ignore(1000, '\n');
             return;
