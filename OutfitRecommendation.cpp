@@ -213,7 +213,9 @@ using namespace std;
 
         if (activity == "A lot of walking" || activity == "Physically active" || style == "Sporty") {
             shoes = {"supportive clean sneakers", "lightweight walking shoes"};
-        } else if (style == "Streetwear") {\n            shoes = {"high-top sneakers", "chunky low-top sneakers"};\n        } else if (occasion == "Office / Work" || occasion == "Wedding / Celebration") {
+        } else if (style == "Streetwear") {
+            shoes = {"high-top sneakers", "chunky low-top sneakers"};
+        } else if (occasion == "Office / Work" || occasion == "Wedding / Celebration") {
             shoes = {"clean loafers or formal shoes", "simple low-profile dress shoes"};
         } else {
             shoes = {"minimal sneakers", "comfortable loafers or flats", "clean casual shoes"};
