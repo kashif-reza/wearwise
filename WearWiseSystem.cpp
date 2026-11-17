@@ -8,6 +8,7 @@
 #include <random>
 #include <chrono>
 #include <cctype>
+#include <set>
 using namespace std;
 
     void WearWiseSystem::bootstrapFiles() {
@@ -81,6 +82,30 @@ using namespace std;
             out << "K309|Kids School Backpack|Accessory|Kids|Navy|One Size|All-Season|University,Travel|Casual|22.00|1|1\n";
             out << "U401|Unisex Sunglasses|Accessory|Unisex|Black|One Size|Summer,All-Season|Casual,Travel|Casual|30.00|0|1\n";
             out.close();
+        }
+
+        // Add new catalogue examples without overwriting a user's existing wardrobe.
+        // This safely upgrades existing installations while preserving ownership/status.
+        set<string> existingIds;
+        {
+            ifstream currentItems(CLOTHING_FILE);
+            string existingLine;
+            while (getline(currentItems, existingLine)) {
+                auto fields = split(existingLine, '|');
+                if (!fields.empty()) existingIds.insert(fields[0]);
+            }
+        }
+        {
+            ifstream seedItems("clothing_seed.txt");
+            ofstream currentItems(CLOTHING_FILE, ios::app);
+            string seedLine;
+            while (getline(seedItems, seedLine)) {
+                if (seedLine.empty() || seedLine[0] == '#') continue;
+                auto fields = split(seedLine, '|');
+                if (fields.size() >= 12 && existingIds.insert(fields[0]).second) {
+                    currentItems << seedLine << "\n";
+                }
+            }
         }
 
         ifstream bf(BUDGET_FILE);
@@ -167,19 +192,17 @@ using namespace std;
             cout << " Active User: " << user.name << " [" << user.targetGroup << "]\n";
             cout << " Situation:   " << user.currentOccasion << " | Weather: " << user.currentSeason << "\n";
             cout << "======================================================================\n";
-            cout << "  [1] Ideal Stylist Recommendation (Occasion & Weather Based, No Closet Needed)\n";
-            cout << "  [2] Smart Wardrobe Recommendation (Strictly From What You Own & Clean)\n";
-            cout << "  [3] Select Occasion, Situation & Weather\n";
-            cout << "  [4] Explore Color Harmonies & Palettes\n";
-            cout << "  [5] My Wardrobe (Inventory & Laundry Tracking)\n";
-            cout << "  [6] Style & Outfit Planner\n";
-            cout << "  [7] My Profile & Anthropometric Measurements\n";
-
-            cout << "  [8] Outfit Usage History\n";
-            cout << "  [9] AI Virtual Try-On Prompt Generator\n";
-            cout << "  [0] Exit Application\n";
-            cout << "======================================================================\n";
-            cout << "Enter option (0-9): ";
+            cout << "  [1] What Should I Wear Today? (Style Ideas + My Wardrobe)\\n";
+            cout << "  [2] Explore Color Harmonies & Palettes\\n";
+            cout << "  [3] My Wardrobe (Inventory & Laundry Tracking)\\n";
+            cout << "  [4] Style & Outfit Planner\\n";
+            cout << "  [5] My Profile & Anthropometric Measurements\\n";
+            cout << "  [6] Outfit Usage History\\n";
+            cout << "  [7] AI Virtual Try-On Prompt Generator\\n";
+            cout << "  [8] Clothing Care Assistant\\n";
+            cout << "  [0] Exit Application\\n";
+            cout << "======================================================================\\n";
+            cout << "Enter option (0-8): ";
 
             int selection;
             if (!(cin >> selection)) {
@@ -189,21 +212,19 @@ using namespace std;
             }
 
             switch (selection) {
-                case 1:  getIdealStylistRecommendation(); break;
-                case 2:  getOwnedWardrobeRecommendation(); break;
-                case 3:  configureOccasionAndWeather(); break;
-                case 4:  exploreColors(); break;
-                case 5:  manageWardrobe(); break;
-                case 6:  dailyOutfitPlanner(); break;
-                case 7:  displayProfile(); break;
-
-                case 8:  showHistory(); break;
-                case 9:  generateAIPrompt(); break;
+                case 1:  whatShouldIWearToday(); break;
+                case 2:  exploreColors(); break;
+                case 3:  manageWardrobe(); break;
+                case 4:  dailyOutfitPlanner(); break;
+                case 5:  displayProfile(); break;
+                case 6:  showHistory(); break;
+                case 7:  generateAIPrompt(); break;
+                case 8:  clothingCareAssistant(); break;
                 case 0:
                     cout << "\nSaving all session data to text files. Exiting WearWise...\n";
                     return;
                 default:
-                    cout << "Invalid choice. Please enter a number between 0 and 10.\n";
+                    cout << "Invalid choice. Please enter a number between 0 and 8.\n";
             }
         }
     }
