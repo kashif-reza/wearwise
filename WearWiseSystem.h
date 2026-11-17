@@ -43,7 +43,7 @@ public:
     void getRandomStyleInspiration();
     void clothingCareAssistant();
     void getOwnedWardrobeRecommendation();
-    void configureOccasionAndWeather();
+    bool configureOccasionAndWeather();
     void manageWardrobe();
     void dailyOutfitPlanner();
     void displayProfile();
