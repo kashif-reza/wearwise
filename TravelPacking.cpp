@@ -73,7 +73,7 @@ void WearWiseSystem::travelPackingPlanner() {
                 continue;
             }
             out << "T|" << tripId << "|" << destination << "|" << travelDate << "|"
-                << days << "|" << tripType << "\n";
+                << days << "|" << tripType << "|" << weather << "|" << activities << "\n";
 
             int tops = min(days, 5);
             int bottoms = min((days + 1) / 2, 4);
@@ -107,6 +107,14 @@ void WearWiseSystem::travelPackingPlanner() {
             if (!hasFootwear) out << "P|" << tripId << "|Comfortable footwear (not in wardrobe)|Buy / borrow|1|0\n";
             if (outerwear > 0 && !hasOuterwear)
                 out << "P|" << tripId << "|Weather-appropriate outer layer|Buy / borrow|1|0\n";
+            if (containsIgnoreCase(weather, "rainy"))
+                out << "P|" << tripId << "|Compact umbrella or raincoat|Weather essential|1|0\n";
+            if (containsIgnoreCase(weather, "hot"))
+                out << "P|" << tripId << "|Sunscreen and sun protection|Weather essential|1|0\n";
+            if (containsIgnoreCase(activities, "beach") || containsIgnoreCase(activities, "swim"))
+                out << "P|" << tripId << "|Swimwear and beachwear|Activity item|1|0\n";
+            if (containsIgnoreCase(activities, "hiking") || containsIgnoreCase(activities, "trek"))
+                out << "P|" << tripId << "|Comfortable activity shoes|Activity item|1|0\n";
             out << "P|" << tripId << "|Underwear|Essentials|" << days << "|0\n";
             out << "P|" << tripId << "|Socks|Essentials|" << days << "|0\n";
             out << "P|" << tripId << "|Toiletries|Essentials|1|0\n";
@@ -132,7 +140,7 @@ void WearWiseSystem::travelPackingPlanner() {
             cout << "\nYOUR TRIPS\n";
             for (size_t i = 0; i < trips.size(); ++i)
                 cout << "[" << i + 1 << "] " << trips[i][2] << " | " << trips[i][3]
-                     << " | " << trips[i][4] << " day(s) | " << trips[i][5] << "\n";
+                     << " | " << trips[i][4] << " day(s) | " << trips[i][5] << " | " << trips[i][6] << "\n";
             cout << "Select a trip number (0 to cancel): ";
             size_t selected;
             if (!(cin >> selected) || selected > trips.size()) {
@@ -146,6 +154,7 @@ void WearWiseSystem::travelPackingPlanner() {
             const string tripId = trips[selected - 1][1];
             vector<size_t> itemLineIndexes;
             cout << "\nPACKING CHECKLIST — " << trips[selected - 1][2] << "\n";
+            cout << "Weather: " << trips[selected - 1][6] << " | Activities: " << trips[selected - 1][7] << "\n";
             for (size_t i = 0; i < lines.size(); ++i) {
                 auto fields = split(lines[i], '|');
                 if (fields.size() >= 6 && fields[0] == "P" && fields[1] == tripId) {
