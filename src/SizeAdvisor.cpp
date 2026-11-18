@@ -6,7 +6,6 @@
 #include <vector>
 #include <algorithm>
 #include <cmath>
-#include <cctype>
 using namespace std;
 
 namespace {
@@ -16,12 +15,6 @@ string sizeFromMeasurement(double value, const vector<double>& limits) {
         if (value <= limits[i]) return labels[i];
     }
     return labels.back();
-}
-
-string upperText(string value) {
-    transform(value.begin(), value.end(), value.begin(),
-              [](unsigned char c) { return static_cast<char>(toupper(c)); });
-    return value;
 }
 
 void showSizeResult(const string& garment, const string& size, const string& reason) {
