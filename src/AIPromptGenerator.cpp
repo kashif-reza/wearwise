@@ -8,7 +8,7 @@ void WearWiseSystem::generateAIPrompt() {
     cout << "                 AI VIRTUAL TRY-ON PROMPT GENERATOR                   \n";
     cout << "======================================================================\n";
 
-    cin.ignore(numeric_limits<streamsize>::max(), '\\n');
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     string top, bottom, footwear, accessories, setting, pose, extra;
     cout << "Top garment (or 0 to cancel): ";
