@@ -6,18 +6,21 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable(wearwise
-    main.cpp
-    StringUtils.cpp
-    WearWiseSystem.cpp
-    ProfileManager.cpp
-    WardrobeManager.cpp
-    OutfitRecommendation.cpp
-    OutfitPlanner.cpp
-    BudgetManager.cpp
-    HistoryManager.cpp
-    ColorHarmony.cpp
-    AIPromptGenerator.cpp
-    ClothingCareAssistant.cpp
-    TravelPacking.cpp
-    FavoritesWishlist.cpp
+    src/main.cpp
+    src/StringUtils.cpp
+    src/WearWiseSystem.cpp
+    src/ProfileManager.cpp
+    src/WardrobeManager.cpp
+    src/OutfitRecommendation.cpp
+    src/OutfitPlanner.cpp
+    src/HistoryManager.cpp
+    src/ColorHarmony.cpp
+    src/ClothingCareAssistant.cpp
+    src/TravelPacking.cpp
+    src/FavoritesWishlist.cpp
 )
+
+target_include_directories(wearwise PRIVATE include)
+
+# Keep file-based user data and resources relative to the repository root.
+set_property(TARGET wearwise PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}")

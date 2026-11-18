@@ -96,7 +96,7 @@ using namespace std;
             }
         }
         {
-            ifstream seedItems("clothing_seed.txt");
+            ifstream seedItems("resources/clothing_seed.txt");
             ofstream currentItems(CLOTHING_FILE, ios::app);
             string seedLine;
             while (getline(seedItems, seedLine)) {
@@ -106,13 +106,6 @@ using namespace std;
                     currentItems << seedLine << "\n";
                 }
             }
-        }
-
-        ifstream bf(BUDGET_FILE);
-        if (!bf.good()) {
-            ofstream out(BUDGET_FILE);
-            out << "300.00 0.00\n";
-            out.close();
         }
 
         ifstream hf(HISTORY_FILE);
@@ -189,18 +182,16 @@ using namespace std;
             cout << " Active User: " << user.name << " [" << user.targetGroup << "]\n";
             cout << " Situation:   " << user.currentOccasion << " | Weather: " << user.currentSeason << "\n";
             cout << "======================================================================\n";
-            cout << "  [1] What Should I Wear Today? (Style Ideas + My Wardrobe)\n";
-            cout << "  [2] Explore Color Harmonies & Palettes\n";
-            cout << "  [3] My Wardrobe & Outfit History\n";
-            cout << "  [4] My Profile & Anthropometric Measurements\n";
-            cout << "  [5] AI Virtual Try-On Prompt Generator\n";
-            cout << "  [6] Clothing Care Assistant\n";
-            cout << "  [7] Wardrobe Insights\n";
-            cout << "  [8] Smart Travel Packing Planner\n";
-            cout << "  [9] My Favorites & Purchase Wishlist\n";
+            cout << "  [1] What Should I Wear Today? (Ideas, Closet Match & Outfit Planner)\n";
+            cout << "  [2] My Wardrobe & Outfit History\n";
+            cout << "  [3] Smart Travel Packing Planner\n";
+            cout << "  [4] My Favorites & Purchase Wishlist\n";
+            cout << "  [5] Clothing Care Assistant\n";
+            cout << "  [6] Explore Color Harmonies\n";
+            cout << "  [7] My Profile & Preferences\n";
             cout << "  [0] Exit Application\n";
             cout << "======================================================================\n";
-            cout << "Enter option (0-9): ";
+            cout << "Enter option (0-7): ";
 
             int selection;
             if (!(cin >> selection)) {
@@ -211,28 +202,25 @@ using namespace std;
 
             switch (selection) {
                 case 1:  whatShouldIWearToday(); break;
-                case 2:  exploreColors(); break;
-                case 3:  manageWardrobe(); break;
-                case 4:  displayProfile(); break;
-                case 5:  generateAIPrompt(); break;
-                case 6:  clothingCareAssistant(); break;
-                case 7:  wardrobeInsights(); break;
-                case 8:  travelPackingPlanner(); break;
-                case 9:  manageFavoritesAndWishlist(); break;
+                case 2:  manageWardrobe(); break;
+                case 3:  travelPackingPlanner(); break;
+                case 4:  manageFavoritesAndWishlist(); break;
+                case 5:  clothingCareAssistant(); break;
+                case 6:  exploreColors(); break;
+                case 7:  displayProfile(); break;
                 case 0:
                     cout << "\nSaving all session data to text files. Exiting WearWise...\n";
                     return;
                 default:
-                    cout << "Invalid choice. Please enter a number between 0 and 9.\n";
+                    cout << "Invalid choice. Please enter a number between 0 and 7.\n";
             }
         }
     }
 
-    WearWiseSystem::WearWiseSystem() : monthlyBudget(300.00), totalExpenditure(75.00) {
+    WearWiseSystem::WearWiseSystem() {
         bootstrapFiles();
         loadColorRules();
         loadClothingCatalogue();
-        loadBudget();
         loadHistory();
         loadPlanner();
     }

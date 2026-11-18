@@ -1,98 +1,159 @@
-# WearWise — Offline Smart Fashion & Wardrobe Assistant
+# WearWise
+### Offline Smart Wardrobe & Travel Assistant
 
-WearWise is a C++17 console application for managing a personal wardrobe, exploring outfit combinations, planning outfits, and learning how to care for clothing. It uses local TXT files and does not require a database or internet connection.
+WearWise is a C++17 terminal application that helps users choose outfits, manage clothes, prepare for trips, and keep a practical purchase wishlist. It works offline and stores personal records in TXT files (no database).
 
-## Features
+## 1. Terminal home screen
 
-1. **What Should I Wear Today?**
-   - Random Style Inspiration for situation-based outfit ideas.
-   - My Wardrobe Recommendation uses only owned and clean/ready clothes.
-   - Style & Outfit Planner lets users schedule outfits for upcoming dates.
-2. **Explore Color Harmonies** — browse complementary colour combinations.
-3. **My Wardrobe & Outfit History** — manage owned clothes, laundry status, and worn-outfit records.
-4. **Smart Travel Packing Planner** — create trip-specific packing checklists using destination, duration, trip type, expected weather, planned activities, and owned wardrobe items; add essentials and mark each item as packed.
-5. **My Favorites & Purchase Wishlist**
-   - Save favorite items already owned.
-   - Track planned purchases with category, preferred colour, estimated price, and priority.
-   - See the estimated total cost of pending wishlist items.
-   - Mark an item as purchased to add it to My Wardrobe automatically.
-6. **My Profile** — save personal style preferences and measurements locally.
-7. **AI Virtual Try-On Prompt Generator** — create a text prompt for an external image tool; WearWise does not generate images.
-8. **Clothing Care Assistant** — fabric care, stain-removal suggestions, and everyday maintenance tips.
-9. **Wardrobe Insights** — review logged clothing usage and wardrobe patterns.
+The main menu is intentionally ordered by everyday importance:
 
-## Project structure
+```text
+======================================================================
+                              WEARWISE
+              Offline Smart Wardrobe & Travel Assistant
+======================================================================
+ Active User: <name> [<group>]
+ Situation:   <occasion> | Weather: <season>
+======================================================================
+  [1] What Should I Wear Today? (Ideas, Closet Match & Outfit Planner)
+  [2] My Wardrobe & Outfit History
+  [3] Smart Travel Packing Planner
+  [4] My Favorites & Purchase Wishlist
+  [5] Clothing Care Assistant
+  [6] Explore Color Harmonies
+  [7] My Profile & Preferences
+  [0] Exit Application
+======================================================================
+Enter option (0-7):
+```
 
-- `main.cpp` — application entry point
-- `WearWiseSystem.h/.cpp` — system coordinator, data initialization, and main menu
-- `UserProfile.h` — profile data structure
-- `ClothingItem.h` — clothing, colour-rule, and planner data structures
-- `StringUtils.h/.cpp` — shared string helpers
-- `ProfileManager.cpp` — profile setup and persistence
-- `WardrobeManager.cpp` — wardrobe inventory and laundry status
-- `OutfitRecommendation.cpp` — daily style inspiration and wardrobe recommendations
-- `OutfitPlanner.cpp` — outfit scheduling inside the What Should I Wear Today? style hub
-- `BudgetManager.cpp` — optional purchase-awareness helper
-- `HistoryManager.cpp` — outfit history and wardrobe usage insights
-- `ColorHarmony.cpp` — colour compatibility explorer
-- `AIPromptGenerator.cpp` — AI try-on prompt generation
-- `ClothingCareAssistant.cpp` — fabric, stain, and maintenance guidance
-- `TravelPacking.cpp` — travel plans and saved packing checklists
-- `FavoritesWishlist.cpp` — favorite wardrobe items and purchase wishlist
+## 2. Feature guide (same order as the terminal)
 
-## Build and run
+### [1] What Should I Wear Today?
+- **[1] Random Style Inspiration** — get outfit ideas based on occasion, weather, mood, and style.
+- **[2] My Wardrobe Recommendation** — get combinations from clothes marked owned and clean/ready.
+- **[3] Style & Outfit Planner** — schedule or remove an outfit for a future date.
+
+### [2] My Wardrobe & Outfit History
+- View the wardrobe.
+- Add a clothing item.
+- Toggle an item's clean/laundry status.
+- Open Outfit Usage History and log what was worn.
+
+### [3] Smart Travel Packing Planner
+- Create a trip with destination, date, duration, trip type, expected weather, and planned activities.
+- Generate a starter checklist using owned clothes plus useful essentials.
+- View a trip checklist and mark items packed.
+
+### [4] My Favorites & Purchase Wishlist
+- Save or remove favorite items already in the wardrobe.
+- Add planned purchases with category, preferred colour, expected price, and priority.
+- Review pending wishlist cost.
+- Mark an item purchased; it is added to the wardrobe.
+
+### [5] Clothing Care Assistant
+- Fabric care guide.
+- Stain removal guide.
+- Everyday clothing maintenance tips.
+
+### [6] Explore Color Harmonies
+- Browse the colour compatibility reference table.
+
+### [7] My Profile & Preferences
+- View the profile and personal style/measurement preferences.
+
+## 3. Project layout
+
+```text
+WearWise/
+├── CMakeLists.txt
+├── README.md
+├── include/                 # Header files and data structures
+│   ├── ClothingItem.h
+│   ├── StringUtils.h
+│   ├── UserProfile.h
+│   └── WearWiseSystem.h
+├── src/                     # C++ implementation files
+│   ├── main.cpp
+│   ├── WearWiseSystem.cpp
+│   ├── ProfileManager.cpp
+│   ├── WardrobeManager.cpp
+│   ├── OutfitRecommendation.cpp
+│   ├── OutfitPlanner.cpp
+│   ├── HistoryManager.cpp
+│   ├── ColorHarmony.cpp
+│   ├── ClothingCareAssistant.cpp
+│   ├── TravelPacking.cpp
+│   ├── FavoritesWishlist.cpp
+│   └── StringUtils.cpp
+├── resources/               # Read-only sample and reference text
+│   ├── clothing_seed.txt
+│   ├── fabric_care.txt
+│   ├── stain_guide.txt
+│   └── maintenance_tips.txt
+└── [runtime TXT files]      # Created in the project root when needed
+```
+
+## 4. Build and run
+
+Run commands from the WearWise project root so the TXT files stay in the expected location.
 
 ### CMake (recommended)
-
-From the project root:
 
 ```bash
 cmake -S . -B build
 cmake --build build
 ```
 
-On Windows with MinGW, run:
+Windows PowerShell:
 
 ```powershell
-.\\build\\wearwise.exe
+.\build\wearwise.exe
 ```
 
-The exact executable path can vary by generator. If needed, search the `build` folder for `wearwise.exe`.
+Linux/macOS:
 
-### Compile directly with g++
+```bash
+./build/wearwise
+```
 
-From the project root:
+### Direct compile with g++
+
+Windows PowerShell:
 
 ```powershell
-g++ -std=c++17 -Wall -Wextra -pedantic *.cpp -o wearwise.exe
-.\\wearwise.exe
+g++ -std=c++17 -Wall -Wextra -pedantic -Iinclude src/*.cpp -o wearwise.exe
+.\wearwise.exe
 ```
 
-## TXT files and sample data
+## 5. Local TXT storage
 
-WearWise uses simple pipe-separated TXT files in the current working directory:
+Personal/runtime files stay in the project root so existing local data remains compatible:
 
-- `users.txt` — saved user profile
-- `clothing.txt` — wardrobe and catalogue records
-- `clothing_seed.txt` — additional sample clothing catalogue entries
-- `colors.txt` — colour compatibility rules
-- `budget.txt` — optional budget and expenditure values
-- `history.txt` — outfit usage records
-- `planner.txt` — scheduled outfits
-- `fabric_care.txt` — fabric-specific care instructions
-- `stain_guide.txt` — common stain treatment suggestions
-- `maintenance_tips.txt` — everyday clothing-care tips
-- `travel_packing.txt` — saved trips and packed-item status (created when first used)
-- `favorites.txt` — IDs of favorite owned garments (created when first used)
-- `wishlist.txt` — planned purchases and purchase status (created when first used)
+- `users.txt` — user profile.
+- `clothing.txt` — owned wardrobe and catalogue.
+- `colors.txt` — colour compatibility rules (created on first run).
+- `history.txt` — worn outfit history.
+- `planner.txt` — scheduled outfits.
+- `travel_packing.txt` — travel plans and packed-item status (created when used).
+- `favorites.txt` — IDs of favorite wardrobe items (created when used).
+- `wishlist.txt` — planned purchases and status (created when used).
 
-On startup, WearWise creates its original working files when they are missing. It also appends new sample catalogue entries from `clothing_seed.txt` only when their IDs are not already present. Existing ownership and laundry statuses are preserved; the seed file does not overwrite your personal wardrobe records.
+Read-only sample/reference data lives in `resources/`. WearWise appends new seed catalogue entries only when their IDs are not already in the wardrobe file; existing ownership and laundry states are preserved.
 
-Keep these TXT files in the project folder and run WearWise with the project root as the current working directory. Back them up before editing manually. The pipe character (`|`) is used as a field separator, so do not enter it inside a field.
+Back up your TXT files before changing branches or manually editing records. The pipe character (`|`) is the field separator and should not be entered inside a value.
 
-## Notes
+## 6. Deliberately removed from the main application
 
-- The clothing catalogue is sample data. Edit your wardrobe through the application to mark items as owned or in laundry.
-- Style recommendations are rule-based suggestions, not professional tailoring or guaranteed size advice.
-- Follow the care label on each garment first. Stain treatments should be tested on a hidden area, especially for delicate or valuable fabrics.
-- WearWise is a local, single-user console application.
+- **AI Virtual Try-On Prompt Generator:** it only assembled a prompt for another tool; it did not perform a try-on or generate an image.
+- **Wardrobe Insights:** its item-use counts relied on matching typed garment names inside free-text history, so results could be misleading.
+- **Separate Budget Advisor:** it duplicated purchase tracking and was disconnected from the new purchase wishlist. The wishlist's estimated total is retained.
+
+These can be reconsidered later if they become genuinely useful and are implemented more reliably.
+
+## 7. Notes
+
+- Outfit suggestions are rule-based, not live AI recommendations.
+- Travel packing quantities are starter estimates; users should adjust them for their trip.
+- Follow each garment's care label first. Test stain treatments on a hidden area before use.
+- WearWise is a local, single-user terminal application.
