@@ -22,9 +22,11 @@ The main menu is intentionally ordered by everyday importance:
   [5] Clothing Care Assistant
   [6] Explore Color Harmonies
   [7] My Profile & Preferences
+  [8] AI Virtual Try-On Prompt Generator
+  [9] My Wardrobe Insights
   [0] Exit Application
 ======================================================================
-Enter option (0-7):
+Enter option (0-9):
 ```
 
 ## 2. Feature guide (same order as the terminal)
@@ -61,6 +63,15 @@ Enter option (0-7):
 
 ### [7] My Profile & Preferences
 - View the profile and personal style/measurement preferences.
+
+### [8] AI Virtual Try-On Prompt Generator
+- Build a detailed external image-generation / virtual try-on prompt from garment descriptions, profile measurements, fit preferences, accessories, setting, and camera direction.
+- WearWise generates prompt text; an external image tool performs the image generation or try-on.
+
+### [9] My Wardrobe Insights
+- Summarize owned, ready-to-wear, and laundry items.
+- Show category and colour breakdowns.
+- Provide suggestions based on missing wardrobe categories and laundry status.
 
 ## 3. Project layout
 
@@ -142,14 +153,6 @@ Personal/runtime files stay in the project root so existing local data remains c
 Read-only sample/reference data lives in `resources/`. WearWise appends new seed catalogue entries only when their IDs are not already in the wardrobe file; existing ownership and laundry states are preserved.
 
 Back up your TXT files before changing branches or manually editing records. The pipe character (`|`) is the field separator and should not be entered inside a value.
-
-## 6. Deliberately removed from the main application
-
-- **AI Virtual Try-On Prompt Generator:** it only assembled a prompt for another tool; it did not perform a try-on or generate an image.
-- **Wardrobe Insights:** its item-use counts relied on matching typed garment names inside free-text history, so results could be misleading.
-- **Separate Budget Advisor:** it duplicated purchase tracking and was disconnected from the new purchase wishlist. The wishlist's estimated total is retained.
-
-These can be reconsidered later if they become genuinely useful and are implemented more reliably.
 
 ## 7. Notes
 

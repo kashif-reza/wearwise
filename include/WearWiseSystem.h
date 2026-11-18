@@ -45,5 +45,7 @@ public:
     void showHistory();
     void travelPackingPlanner();
     void manageFavoritesAndWishlist();
+    void generateAIPrompt();
+    void showWardrobeInsights();
     void runDashboard();
 };

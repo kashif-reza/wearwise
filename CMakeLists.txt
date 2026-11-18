@@ -18,6 +18,8 @@ add_executable(wearwise
     src/ClothingCareAssistant.cpp
     src/TravelPacking.cpp
     src/FavoritesWishlist.cpp
+    src/AIPromptGenerator.cpp
+    src/WardrobeInsights.cpp
 )
 
 target_include_directories(wearwise PRIVATE include)
