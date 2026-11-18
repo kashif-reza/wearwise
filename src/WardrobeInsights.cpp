@@ -30,7 +30,7 @@ void WearWiseSystem::showWardrobeInsights() {
     if (owned == 0) {
         cout << "\nYour wardrobe is empty. Add owned items to start seeing insights.\n";
         cout << "Press Enter to return...";
-        cin.ignore(10000, '\\n');
+        cin.ignore(10000, '\n');
         cin.get();
         return;
     }
@@ -58,6 +58,6 @@ void WearWiseSystem::showWardrobeInsights() {
 
     cout << "\nInsights use your owned clothing records; no history-name guessing is involved.\n";
     cout << "Press Enter to return...";
-    cin.ignore(10000, '\\n');
+    cin.ignore(10000, '\n');
     cin.get();
 }
