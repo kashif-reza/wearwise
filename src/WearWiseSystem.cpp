@@ -189,6 +189,8 @@ using namespace std;
             cout << "  [5] Clothing Care Assistant\n";
             cout << "  [6] Explore Color Harmonies\n";
             cout << "  [7] My Profile & Preferences\n";
+            cout << "  [8] AI Virtual Try-On Prompt Generator\n";
+            cout << "  [9] My Wardrobe Insights\n";
             cout << "  [0] Exit Application\n";
             cout << "======================================================================\n";
             cout << "Enter option (0-9): ";
