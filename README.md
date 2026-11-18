@@ -22,6 +22,8 @@ The main menu is intentionally ordered by everyday importance:
   [5] Clothing Care Assistant
   [6] Explore Color Harmonies
   [7] My Profile & Preferences
+  [8] AI Virtual Try-On Prompt Generator
+  [9] My Wardrobe Insights
   [0] Exit Application
 ======================================================================
 Enter option (0-7):
@@ -61,6 +63,14 @@ Enter option (0-7):
 
 ### [7] My Profile & Preferences
 - View the profile and personal style/measurement preferences.
+
+### [8] AI Virtual Try-On Prompt Generator
+- Build a detailed virtual try-on prompt from outfit descriptions and saved profile preferences.
+- Copy the generated prompt into an external image or virtual try-on tool; image generation itself is not performed inside this terminal app.
+
+### [9] My Wardrobe Insights
+- See owned-item totals, ready-to-wear vs laundry counts, category distribution, and colour distribution.
+- Get simple wardrobe-maintenance suggestions based on recorded items.
 
 ## 3. Project layout
 
@@ -143,13 +153,11 @@ Read-only sample/reference data lives in `resources/`. WearWise appends new seed
 
 Back up your TXT files before changing branches or manually editing records. The pipe character (`|`) is the field separator and should not be entered inside a value.
 
-## 6. Deliberately removed from the main application
+## 6. Feature scope
 
-- **AI Virtual Try-On Prompt Generator:** it only assembled a prompt for another tool; it did not perform a try-on or generate an image.
-- **Wardrobe Insights:** its item-use counts relied on matching typed garment names inside free-text history, so results could be misleading.
-- **Separate Budget Advisor:** it duplicated purchase tracking and was disconnected from the new purchase wishlist. The wishlist's estimated total is retained.
-
-These can be reconsidered later if they become genuinely useful and are implemented more reliably.
+- The AI Virtual Try-On Prompt Generator creates reusable prompts for external image-generation or virtual try-on tools; it does not generate images itself.
+- Wardrobe Insights reports directly calculated counts from owned wardrobe records. It does not infer garment usage from free-text history.
+- A separate Budget Advisor is not included; the purchase wishlist continues to show the estimated total of pending purchases.
 
 ## 7. Notes
 
