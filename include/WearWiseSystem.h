@@ -48,5 +48,6 @@ public:
     void generateAIPrompt();
     void showWardrobeInsights();
     void recommendClothingSizes();
+    void rateOutfit();
     void runDashboard();
 };
