@@ -25,9 +25,10 @@ The main menu is intentionally ordered by everyday importance:
   [8] AI Virtual Try-On Prompt Generator
   [9] My Wardrobe Insights
   [10] Personal Clothing Size Advisor (Measurements -> Sizes)
+  [11] Outfit Rating & Style Feedback (Score 1-10)
   [0] Exit Application
 ======================================================================
-Enter option (0-10):
+Enter option (0-11):
 ```
 
 ## 2. Feature guide (same order as the terminal)
@@ -80,6 +81,11 @@ Enter option (0-10):
 - Checks suggested shirt and trouser sizes against matching garments in the catalogue.
 - Results are generic starting estimates, not guaranteed brand-specific sizes; always compare the seller's measurement chart.
 
+### [11] Outfit Rating & Style Feedback
+- Enter your shirt/top, bottom, and shoe choices.
+- Select the occasion and weather, then rate fit, comfort, occasion suitability, weather suitability, colour coordination, and shoe matching.
+- Receive a weighted score from 1 to 10 with practical suggestions for lower-rated areas.
+
 ## 3. Project layout
 
 ```text
@@ -106,6 +112,7 @@ WearWise/
 │   ├── AIPromptGenerator.cpp
 │   ├── WardrobeInsights.cpp
 │   ├── SizeAdvisor.cpp
+│   ├── OutfitRating.cpp
 │   └── StringUtils.cpp
 ├── resources/               # Read-only sample and reference text
 │   ├── clothing_seed.txt
