@@ -191,9 +191,10 @@ using namespace std;
             cout << "  [7] My Profile & Preferences\n";
             cout << "  [8] AI Virtual Try-On Prompt Generator\n";
             cout << "  [9] My Wardrobe Insights\n";
+            cout << "  [10] Personal Clothing Size Advisor (Measurements -> Sizes)\n";
             cout << "  [0] Exit Application\n";
             cout << "======================================================================\n";
-            cout << "Enter option (0-9): ";
+            cout << "Enter option (0-10): ";
 
             int selection;
             if (!(cin >> selection)) {
@@ -212,11 +213,12 @@ using namespace std;
                 case 7:  displayProfile(); break;
                 case 8:  generateAIPrompt(); break;
                 case 9:  showWardrobeInsights(); break;
+                case 10: recommendClothingSizes(); break;
                 case 0:
                     cout << "\nSaving all session data to text files. Exiting WearWise...\n";
                     return;
                 default:
-                    cout << "Invalid choice. Please enter a number between 0 and 9.\n";
+                    cout << "Invalid choice. Please enter a number between 0 and 10.\n";
             }
         }
     }
