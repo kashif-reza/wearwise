@@ -18,4 +18,6 @@ add_executable(wearwise
     ColorHarmony.cpp
     AIPromptGenerator.cpp
     ClothingCareAssistant.cpp
+    TravelPacking.cpp
+    FavoritesWishlist.cpp
 )
