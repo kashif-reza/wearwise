@@ -22,6 +22,8 @@ The main menu is intentionally ordered by everyday importance:
   [5] Clothing Care Assistant
   [6] Explore Color Harmonies
   [7] My Profile & Preferences
+  [8] AI Virtual Try-On Prompt Generator
+  [9] My Wardrobe Insights
   [0] Exit Application
 ======================================================================
 Enter option (0-9):
@@ -61,6 +63,15 @@ Enter option (0-9):
 
 ### [7] My Profile & Preferences
 - View the profile and personal style/measurement preferences.
+
+### [8] AI Virtual Try-On Prompt Generator
+- Build a detailed external image-generation / virtual try-on prompt from garment descriptions, profile measurements, fit preferences, accessories, setting, and camera direction.
+- WearWise generates prompt text; an external image tool performs the image generation or try-on.
+
+### [9] My Wardrobe Insights
+- Summarize owned, ready-to-wear, and laundry items.
+- Show category and colour breakdowns.
+- Provide suggestions based on missing wardrobe categories and laundry status.
 
 ## 3. Project layout
 
