@@ -51,5 +51,7 @@ public:
     void exploreColors();
     void showHistory();
     void wardrobeInsights();
+    void travelPackingPlanner();
+    void manageFavoritesAndWishlist();
     void runDashboard();
 };
