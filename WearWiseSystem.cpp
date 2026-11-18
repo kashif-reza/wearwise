@@ -196,9 +196,11 @@ using namespace std;
             cout << "  [5] AI Virtual Try-On Prompt Generator\n";
             cout << "  [6] Clothing Care Assistant\n";
             cout << "  [7] Wardrobe Insights\n";
+            cout << "  [8] Smart Travel Packing Planner\n";
+            cout << "  [9] My Favorites & Purchase Wishlist\n";
             cout << "  [0] Exit Application\n";
             cout << "======================================================================\n";
-            cout << "Enter option (0-7): ";
+            cout << "Enter option (0-9): ";
 
             int selection;
             if (!(cin >> selection)) {
@@ -215,11 +217,13 @@ using namespace std;
                 case 5:  generateAIPrompt(); break;
                 case 6:  clothingCareAssistant(); break;
                 case 7:  wardrobeInsights(); break;
+                case 8:  travelPackingPlanner(); break;
+                case 9:  manageFavoritesAndWishlist(); break;
                 case 0:
                     cout << "\nSaving all session data to text files. Exiting WearWise...\n";
                     return;
                 default:
-                    cout << "Invalid choice. Please enter a number between 0 and 7.\n";
+                    cout << "Invalid choice. Please enter a number between 0 and 9.\n";
             }
         }
     }
