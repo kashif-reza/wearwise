@@ -36,7 +36,7 @@ void WearWiseSystem::travelPackingPlanner() {
         if (choice == 0) return;
 
         if (choice == 1) {
-            string destination, travelDate, tripType;
+            string destination, travelDate, tripType, weather, activities;
             int days = 0;
             cout << "Destination: ";
             getline(cin, destination);
@@ -52,10 +52,16 @@ void WearWiseSystem::travelPackingPlanner() {
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "Trip type (Vacation / Business / Adventure / Family visit): ";
             getline(cin, tripType);
+            cout << "Expected weather (Hot / Rainy / Cold / Mixed): ";
+            getline(cin, weather);
+            cout << "Planned activities (e.g. beach, hiking, meetings): ";
+            getline(cin, activities);
             destination = travelField(destination);
             travelDate = travelField(travelDate);
             tripType = travelField(tripType);
-            if (destination.empty() || travelDate.empty() || tripType.empty()) {
+            weather = travelField(weather);
+            activities = travelField(activities);
+            if (destination.empty() || travelDate.empty() || tripType.empty() || weather.empty() || activities.empty()) {
                 cout << "Destination, date, and trip type are required. Nothing was saved.\n";
                 continue;
             }
@@ -73,7 +79,10 @@ void WearWiseSystem::travelPackingPlanner() {
             int bottoms = min((days + 1) / 2, 4);
             int footwear = 1;
             int outerwear = (containsIgnoreCase(tripType, "adventure") ||
-                             containsIgnoreCase(tripType, "business")) ? 1 : 0;
+                             containsIgnoreCase(tripType, "business") ||
+                             containsIgnoreCase(weather, "cold") ||
+                             containsIgnoreCase(weather, "rainy") ||
+                             containsIgnoreCase(weather, "mixed")) ? 1 : 0;
             bool hasTop = false, hasBottom = false, hasFootwear = false, hasOuterwear = false;
             for (const auto& item : clothingCatalogue) {
                 if (!item.isOwned) continue;
@@ -114,7 +123,7 @@ void WearWiseSystem::travelPackingPlanner() {
             while (getline(in, line)) {
                 lines.push_back(line);
                 auto fields = split(line, '|');
-                if (fields.size() >= 6 && fields[0] == "T") trips.push_back(fields);
+                if (fields.size() >= 8 && fields[0] == "T") trips.push_back(fields);
             }
             if (trips.empty()) {
                 cout << "No travel plans yet. Create one first.\n";
