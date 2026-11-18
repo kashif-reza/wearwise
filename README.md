@@ -10,7 +10,7 @@ WearWise is a C++17 console application for managing a personal wardrobe, explor
    - Style & Outfit Planner lets users schedule outfits for upcoming dates.
 2. **Explore Color Harmonies** — browse complementary colour combinations.
 3. **My Wardrobe & Outfit History** — manage owned clothes, laundry status, and worn-outfit records.
-4. **Smart Travel Packing Planner** — create trip-specific packing checklists using owned wardrobe items, add essential travel items, and mark each item as packed.
+4. **Smart Travel Packing Planner** — create trip-specific packing checklists using destination, duration, trip type, expected weather, planned activities, and owned wardrobe items; add essentials and mark each item as packed.
 5. **My Favorites & Purchase Wishlist**
    - Save favorite items already owned.
    - Track planned purchases with category, preferred colour, estimated price, and priority.
