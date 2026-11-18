@@ -50,5 +50,6 @@ public:
     void generateAIPrompt();
     void exploreColors();
     void showHistory();
+    void wardrobeInsights();
     void runDashboard();
 };
