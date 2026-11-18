@@ -67,7 +67,8 @@ using namespace std;
                 }
             }
             cout << "----------------------------------------------------------------------\n";
-            cout << "Actions: [1] Toggle Clean/Laundry Status  [2] Add New Item  [0] Go Back\nChoice: ";
+            cout << "Actions: [1] Toggle Clean/Laundry Status  [2] Add New Item\n";
+            cout << "         [3] Outfit Usage History  [0] Go Back\nChoice: ";
             int opt;
             if (!(cin >> opt) || opt == 0) {
                 cin.clear();
@@ -91,6 +92,8 @@ using namespace std;
                     }
                 }
                 if (found) saveClothingCatalogue();
+            } else if (opt == 3) {
+                showHistory();
             } else if (opt == 2) {
                 cin.ignore();
                 ClothingItem newItem;
