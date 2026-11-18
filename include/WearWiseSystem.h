@@ -47,5 +47,7 @@ public:
     void manageFavoritesAndWishlist();
     void generateAIPrompt();
     void showWardrobeInsights();
+    void recommendClothingSizes();
+    void rateOutfit();
     void runDashboard();
 };

@@ -20,6 +20,8 @@ add_executable(wearwise
     src/FavoritesWishlist.cpp
     src/AIPromptGenerator.cpp
     src/WardrobeInsights.cpp
+    src/SizeAdvisor.cpp
+    src/OutfitRating.cpp
 )
 
 target_include_directories(wearwise PRIVATE include)
