@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <cmath>
 #include <cctype>
 using namespace std;
 
@@ -66,8 +67,10 @@ void WearWiseSystem::recommendClothingSizes() {
     string upperSize = sizeFromMeasurement(chest, upperLimits);
     string lowerWaistSize = sizeFromMeasurement(waist, lowerLimits);
     string lowerHipSize = sizeFromMeasurement(hip, {88, 96, 104, 112, 120});
-    string lowerSize = lowerWaistSize;
-    if (lowerHipSize > lowerSize) lowerSize = lowerHipSize;
+    const vector<string> orderedSizes = {"XS", "S", "M", "L", "XL", "XXL"};
+    auto waistRank = find(orderedSizes.begin(), orderedSizes.end(), lowerWaistSize) - orderedSizes.begin();
+    auto hipRank = find(orderedSizes.begin(), orderedSizes.end(), lowerHipSize) - orderedSizes.begin();
+    string lowerSize = orderedSizes[max(waistRank, hipRank)];
 
     // Foot-length ranges are approximate adult unisex EU starting points.
     int euShoe = static_cast<int>(round(footLength * 1.5 + 2.0));
