@@ -29,9 +29,9 @@ WearWise is a C++17 console application for managing a personal wardrobe, explor
 - `ProfileManager.cpp` — profile setup and persistence
 - `WardrobeManager.cpp` — wardrobe inventory and laundry status
 - `OutfitRecommendation.cpp` — daily style inspiration and wardrobe recommendations
-- `OutfitPlanner.cpp` — outfit scheduling
+- `OutfitPlanner.cpp` — outfit scheduling inside the What Should I Wear Today? style hub
 - `BudgetManager.cpp` — optional purchase-awareness helper
-- `HistoryManager.cpp` — outfit usage history
+- `HistoryManager.cpp` — outfit history and wardrobe usage insights
 - `ColorHarmony.cpp` — colour compatibility explorer
 - `AIPromptGenerator.cpp` — AI try-on prompt generation
 - `ClothingCareAssistant.cpp` — fabric, stain, and maintenance guidance
