@@ -191,15 +191,14 @@ using namespace std;
             cout << "======================================================================\n";
             cout << "  [1] What Should I Wear Today? (Style Ideas + My Wardrobe)\n";
             cout << "  [2] Explore Color Harmonies & Palettes\n";
-            cout << "  [3] My Wardrobe (Inventory & Laundry Tracking)\n";
-            cout << "  [4] Style & Outfit Planner\n";
-            cout << "  [5] My Profile & Anthropometric Measurements\n";
-            cout << "  [6] Outfit Usage History\n";
-            cout << "  [7] AI Virtual Try-On Prompt Generator\n";
-            cout << "  [8] Clothing Care Assistant\n";
+            cout << "  [3] My Wardrobe & Outfit History\n";
+            cout << "  [4] My Profile & Anthropometric Measurements\n";
+            cout << "  [5] AI Virtual Try-On Prompt Generator\n";
+            cout << "  [6] Clothing Care Assistant\n";
+            cout << "  [7] Wardrobe Insights\n";
             cout << "  [0] Exit Application\n";
             cout << "======================================================================\n";
-            cout << "Enter option (0-8): ";
+            cout << "Enter option (0-7): ";
 
             int selection;
             if (!(cin >> selection)) {
@@ -212,16 +211,15 @@ using namespace std;
                 case 1:  whatShouldIWearToday(); break;
                 case 2:  exploreColors(); break;
                 case 3:  manageWardrobe(); break;
-                case 4:  dailyOutfitPlanner(); break;
-                case 5:  displayProfile(); break;
-                case 6:  showHistory(); break;
-                case 7:  generateAIPrompt(); break;
-                case 8:  clothingCareAssistant(); break;
+                case 4:  displayProfile(); break;
+                case 5:  generateAIPrompt(); break;
+                case 6:  clothingCareAssistant(); break;
+                case 7:  wardrobeInsights(); break;
                 case 0:
                     cout << "\nSaving all session data to text files. Exiting WearWise...\n";
                     return;
                 default:
-                    cout << "Invalid choice. Please enter a number between 0 and 8.\n";
+                    cout << "Invalid choice. Please enter a number between 0 and 7.\n";
             }
         }
     }
