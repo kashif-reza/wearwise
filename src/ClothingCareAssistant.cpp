@@ -29,9 +29,9 @@ void WearWiseSystem::clothingCareAssistant() {
         if (choice == 0) return;
 
         if (choice == 1) {
-            ifstream file("fabric_care.txt");
+            ifstream file("resources/fabric_care.txt");
             if (!file) {
-                cout << "fabric_care.txt could not be opened. Keep it beside the WearWise executable/project.\n";
+                cout << "resources/fabric_care.txt could not be opened. Keep it beside the WearWise executable/project.\n";
                 continue;
             }
             vector<vector<string>> rows;
@@ -66,9 +66,9 @@ void WearWiseSystem::clothingCareAssistant() {
             cout << "Storage:  " << r[4] << "\n";
             cout << "Extra:    " << r[5] << "\n";
         } else if (choice == 2) {
-            ifstream file("stain_guide.txt");
+            ifstream file("resources/stain_guide.txt");
             if (!file) {
-                cout << "stain_guide.txt could not be opened. Keep it beside the WearWise executable/project.\n";
+                cout << "resources/stain_guide.txt could not be opened. Keep it beside the WearWise executable/project.\n";
                 continue;
             }
             vector<vector<string>> rows;
@@ -102,9 +102,9 @@ void WearWiseSystem::clothingCareAssistant() {
             cout << "Avoid:        " << r[3] << "\n";
             cout << "Care reminder: test any treatment on a hidden area first and follow the garment label.\n";
         } else if (choice == 3) {
-            ifstream file("maintenance_tips.txt");
+            ifstream file("resources/maintenance_tips.txt");
             if (!file) {
-                cout << "maintenance_tips.txt could not be opened. Keep it beside the WearWise executable/project.\n";
+                cout << "resources/maintenance_tips.txt could not be opened. Keep it beside the WearWise executable/project.\n";
                 continue;
             }
             string line;

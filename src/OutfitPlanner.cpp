@@ -47,7 +47,7 @@ using namespace std;
             }
         }
         cout << "----------------------------------------------------------------------\n";
-        cout << "[1] Schedule outfit  [2] Remove plan  [3] Optional purchase awareness  [0] Back\nChoice: ";
+        cout << "[1] Schedule outfit  [2] Remove plan  [0] Back\nChoice: ";
         int choice;
         if (!(cin >> choice)) {
             cin.clear(); cin.ignore(10000, '\n');
@@ -96,10 +96,8 @@ using namespace std;
             plannedOutfits.erase(plannedOutfits.begin() + static_cast<long>(index - 1));
             savePlanner();
             cout << "Plan removed and saved.\n";
-        } else if (choice == 3) {
-            budgetAdvisor();
         } else {
-            cout << "Invalid choice. Please choose 0-3.\n";
+            cout << "Invalid choice. Please choose 0, 1, or 2.\n";
         }
     }
 }

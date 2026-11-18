@@ -39,7 +39,7 @@ using namespace std;
                  << rec.occasion << " | " << rec.outfitDetails << "\n";
         }
         cout << "----------------------------------------------------------------------\n";
-        cout << "Options: [1] Log Today's Worn Outfit  [0] Go Back\nChoice: ";
+        cout << "Options: [1] Log a Worn Outfit  [0] Go Back\nChoice: ";
         int ch;
         if (!(cin >> ch) || ch == 0) {
             cin.clear();
@@ -55,6 +55,10 @@ using namespace std;
         getline(cin, entry.occasion);
         cout << "Outfit Worn: ";
         getline(cin, entry.outfitDetails);
+        if (entry.date.empty() || entry.occasion.empty() || entry.outfitDetails.empty()) {
+            cout << "All fields are required. Nothing was saved.\n";
+            return;
+        }
         historyRecords.push_back(entry);
         saveHistory();
         cout << "[SUCCESS] Worn outfit logged!\n";
