@@ -83,8 +83,9 @@ using namespace std;
             cout << "\n======================================================================\n";
             cout << "                    WHAT SHOULD I WEAR TODAY?                          \n";
             cout << "======================================================================\n";
-            cout << "[1] Random Style Inspiration (does not check your wardrobe)\n";
-            cout << "[2] My Wardrobe Recommendation (only my own clean clothes)\n";
+            cout << "[1] Random Style Inspiration (ideas beyond your closet)\n";
+            cout << "[2] My Wardrobe Recommendation (your own clean clothes)\n";
+            cout << "[3] Style & Outfit Planner (schedule future outfits)\n";
             cout << "[0] Back to main menu\n";
             cout << "Choice: ";
 
@@ -103,8 +104,10 @@ using namespace std;
             } else if (choice == 2) {
                 cout << "\nLet's update today's situation before checking your own wardrobe.\n";
                 if (configureOccasionAndWeather()) getOwnedWardrobeRecommendation();
+            } else if (choice == 3) {
+                dailyOutfitPlanner();
             } else {
-                cout << "Please choose 0, 1, or 2.\n";
+                cout << "Please choose 0, 1, 2, or 3.\n";
             }
         }
     }
@@ -302,8 +305,8 @@ using namespace std;
             cout << " - Clean Tops:     " << uppers.size() << "\n";
             cout << " - Clean Bottoms:  " << lowers.size() << "\n";
             cout << " - Clean Footwear: " << feet.size() << "\n";
-            cout << "\nTip: Open Option 3 (My Wardrobe) to mark laundry items as clean,\n";
-            cout << "or use Option 1 (Random Style Inspiration) to get outfit ideas first.\n";
+            cout << "\nTip: Open My Wardrobe & Outfit History to mark laundry items as clean,\n";
+            cout << "or use Random Style Inspiration to get outfit ideas first.\n";
             cout << "\nPress Enter to return...";
             cin.ignore(1000, '\n');
             return;
